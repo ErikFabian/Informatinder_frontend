@@ -4,9 +4,6 @@ import 'package:frontend_flutter/bottomNavBar.dart';
 class matchesPage extends StatelessWidget {
   static const String routeName = "/matchesPage";
 
-  final data;
-  matchesPage({this.data});
-
   Widget matchesSection(String profileName, String profile) {
     return Column(children: [
       Container(
@@ -49,7 +46,7 @@ class matchesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Matches"),
+        title: const Text("Matches"),
       ),
       body: Column(
         children: [
