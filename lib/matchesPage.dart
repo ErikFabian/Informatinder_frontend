@@ -45,16 +45,20 @@ class matchesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Matches"),
-      ),
-      body: Column(
-        children: [
-          for (int i = 0; i <= 5; i++)
-            matchesSection("name" + i.toString(), ""),
-        ],
-      ),
-      bottomNavigationBar: bottomNavBar(),
-    );
+        appBar: AppBar(
+          title: const Text("Matches"),
+        ),
+        bottomNavigationBar: bottomNavBar(),
+        body: SizedBox.expand(child: DraggableScrollableSheet(
+            builder: (BuildContext context, ScrollController scrollController
+            ) {
+          return Column(
+            children: [
+              ListView.builder(controller: scrollController, itemBuilder: (BuildContext context, int index)),
+              for (int i = 0; i <= 5; i++)
+                matchesSection("name" + i.toString(), ""),
+            ],
+          );
+        })));
   }
 }

@@ -47,22 +47,36 @@ class matchingPage extends StatelessWidget {
       ),
     );
 
+    int sensitivity = 8;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Suchen"),
+        title: const Text("Swipen"),
       ),
-      body: Column(
-        children: [
-          Image.asset(
-            'images/example.png',
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,
-          ),
-          titleSection,
-          textSection,
-        ],
-      ),
+      body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onHorizontalDragUpdate: (details) {
+            if (details.delta.dx > sensitivity) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Right Swipe"),
+              ));
+            } else if (details.delta.dx < -sensitivity) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Left Swipe"),
+              ));
+            }
+            Column(
+              children: [
+                Image.asset(
+                  'images/example.png',
+                  width: 600,
+                  height: 240,
+                  fit: BoxFit.cover,
+                ),
+                titleSection,
+                textSection,
+              ],
+            );
+          }),
       bottomNavigationBar: bottomNavBar(),
     );
   }
