@@ -49,16 +49,11 @@ class matchesPage extends StatelessWidget {
           title: const Text("Matches"),
         ),
         bottomNavigationBar: bottomNavBar(),
-        body: SizedBox.expand(child: DraggableScrollableSheet(
-            builder: (BuildContext context, ScrollController scrollController
-            ) {
-          return Column(
-            children: [
-              ListView.builder(controller: scrollController, itemBuilder: (BuildContext context, int index)),
-              for (int i = 0; i <= 5; i++)
-                matchesSection("name" + i.toString(), ""),
-            ],
-          );
-        })));
+        body: ListView(
+          children: <Widget>[
+            for (int i = 0; i <= 15; i++)
+              matchesSection("name" + i.toString(), ""),
+          ],
+        ));
   }
 }
