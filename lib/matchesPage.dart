@@ -48,7 +48,45 @@ class matchesPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Matches"),
         ),
-        bottomNavigationBar: bottomNavBar(),
+        bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.red,
+            currentIndex: 2,
+            onTap: (index) {
+              if (2 != index.toInt()) {
+                switch (index.toInt()) {
+                  case 0:
+                    Navigator.of(context).pushNamed('/');
+                    break;
+                  case 1:
+                    Navigator.of(context).pushNamed('/matching');
+                    break;
+                  case 2:
+                    Navigator.of(context).pushNamed('/matches');
+                    break;
+                  case 3:
+                    Navigator.of(context).pushNamed('/settings');
+                    break;
+                }
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.touch_app),
+                  label: 'Matchen',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Matches',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
+                  backgroundColor: Colors.black)
+            ]),
         body: ListView(
           children: <Widget>[
             for (int i = 0; i <= 15; i++)

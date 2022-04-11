@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/matchingPage.dart';
 import 'package:frontend_flutter/matchesPage.dart';
 import 'package:frontend_flutter/settingsPage.dart';
-import 'package:frontend_flutter/bottomNavBar.dart';
+import 'package:frontend_flutter/routeGenerator.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,32 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //Routes
-      routes: <String, WidgetBuilder>{
-        MyHomePage.routeName: (context) => MyHomePage(),
-        matchingPage.routeName: (context) => matchingPage(),
-        matchesPage.routeName: (context) => matchesPage(),
-        settingsPage.routeName: (context) => settingsPage(),
-      },
-      initialRoute: MyHomePage.routeName,
-
-      onGenerateRoute: (RouteSettings settings) {
-        var page;
-        String routeName = settings.name.toString();
-        switch (routeName) {
-          case matchingPage.routeName:
-            page = matchingPage(
-              data: settings.arguments,
-            );
-            return MaterialPageRoute(builder: (context) => page);
-        }
-      },
-      onUnknownRoute: (RouteSettings settings) {
-        var page;
-        page = MyHomePage();
-
-        return MaterialPageRoute(builder: (context) => page);
-      },
-
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
       title: 'Informatinder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -105,22 +81,59 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Column(
-        children: [
-          Image.asset(
-            'images/example.png',
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,
-          ),
-          titleSection,
-          textSection,
-        ],
-      ),
-      bottomNavigationBar: bottomNavBar(),
-    );
+        appBar: AppBar(
+          title: const Text('Home'),
+        ),
+        body: Column(
+          children: [
+            Image.asset(
+              'images/example.png',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            textSection,
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.red,
+            currentIndex: 0,
+            onTap: (index) {
+              if (0 != index.toInt()) {
+                switch (index.toInt()) {
+                  case 0:
+                    Navigator.of(context).pushNamed('/');
+                    break;
+                  case 1:
+                    Navigator.of(context).pushNamed('/matching');
+                    break;
+                  case 2:
+                    Navigator.of(context).pushNamed('/matches');
+                    break;
+                  case 3:
+                    Navigator.of(context).pushNamed('/settings');
+                    break;
+                }
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.touch_app),
+                  label: 'Matchen',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Matches',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
+                  backgroundColor: Colors.black)
+            ]));
   }
 }
