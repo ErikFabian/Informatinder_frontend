@@ -140,7 +140,7 @@ class settingPage extends State<settingsPage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.blue,
             currentIndex: 3,
             onTap: (index) {
               if (3 != index.toInt()) {

@@ -49,7 +49,7 @@ class matchesPage extends StatelessWidget {
           title: const Text("Matches"),
         ),
         bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.blue,
             currentIndex: 2,
             onTap: (index) {
               if (2 != index.toInt()) {

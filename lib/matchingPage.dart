@@ -76,7 +76,7 @@ class matchingPage extends StatelessWidget {
               }
             }),
         bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.blue,
             currentIndex: 1,
             onTap: (index) {
               if (1 != index.toInt()) {

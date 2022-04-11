@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.blue,
             currentIndex: 0,
             onTap: (index) {
               if (0 != index.toInt()) {
