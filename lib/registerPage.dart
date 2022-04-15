@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/bottomNavBar.dart';
 
-class registerPage extends StatelessWidget {
+class registerPage extends StatefulWidget {
+  static const String routeName = "/settingsPage";
+  regPage createState() => regPage();
+}
+
+class regPage extends State<registerPage> {
   static const String routeName = "/matchesPage";
+
+  bool company = false;
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +20,6 @@ class registerPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Image.asset(
-            'images/logo.png',
-            width: 500,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
           Container(
             padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
             child: Row(
@@ -57,31 +58,78 @@ class registerPage extends StatelessWidget {
                               border: OutlineInputBorder()),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: const Text(
+                          'Confirm Password',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: const Text(
+                          'Name',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: const Text(
+                          'Geburtdatum',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      CheckboxListTile(
+                        title: const Text("Notifications"),
+                        value: company,
+                        onChanged: (value) {
+                          setState(() {
+                            company = value!;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                      Container(
+                          child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 32, left: 32, right: 32),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/');
+                          },
+                          child: const Text('Register'),
+                        ),
+                      ))
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Login'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Register'),
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );
