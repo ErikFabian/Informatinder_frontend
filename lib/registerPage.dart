@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/bottomNavBar.dart';
 
 class registerPage extends StatefulWidget {
-  static const String routeName = "/settingsPage";
   regPage createState() => regPage();
 }
 
 class regPage extends State<registerPage> {
-  static const String routeName = "/matchesPage";
-
   bool company = false;
 
   @override

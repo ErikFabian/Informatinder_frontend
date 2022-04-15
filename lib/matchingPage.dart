@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/bottomNavBar.dart';
 
 class matchingPage extends StatelessWidget {
-  static const String routeName = "/matchingPage";
-
-  final data;
-  matchingPage({this.data});
-
   @override
   Widget build(BuildContext context) {
+    int sensitivity = 8;
+
     Widget titleSection = Container(
       padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
       child: Row(
@@ -47,72 +43,28 @@ class matchingPage extends StatelessWidget {
       ),
     );
 
-    int sensitivity = 8;
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Swipen"),
-        ),
-        body: GestureDetector(
-            child: Column(children: [
-              Image.asset(
-                'images/example.png',
-                width: 600,
-                height: 240,
-                fit: BoxFit.cover,
-              ),
-              titleSection,
-              textSection,
-            ]),
-            behavior: HitTestBehavior.translucent,
-            onHorizontalDragUpdate: (details) {
-              if (details.delta.dx > sensitivity) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Right Swipe"),
-                ));
-              } else if (details.delta.dx < -sensitivity) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Left Swipe"),
-                ));
-              }
-            }),
-        bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.blue,
-            currentIndex: 1,
-            onTap: (index) {
-              if (1 != index.toInt()) {
-                switch (index.toInt()) {
-                  case 0:
-                    Navigator.of(context).pushNamed('/');
-                    break;
-                  case 1:
-                    Navigator.of(context).pushNamed('/matching');
-                    break;
-                  case 2:
-                    Navigator.of(context).pushNamed('/matches');
-                    break;
-                  case 3:
-                    Navigator.of(context).pushNamed('/settings');
-                    break;
-                }
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                  backgroundColor: Colors.black),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.touch_app),
-                  label: 'Matchen',
-                  backgroundColor: Colors.black),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
-                  label: 'Matches',
-                  backgroundColor: Colors.black),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                  backgroundColor: Colors.black)
-            ]));
+    return GestureDetector(
+        child: Column(children: [
+          Image.asset(
+            'images/example.png',
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          titleSection,
+          textSection,
+        ]),
+        behavior: HitTestBehavior.translucent,
+        onHorizontalDragUpdate: (details) {
+          if (details.delta.dx > sensitivity) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Right Swipe"),
+            ));
+          } else if (details.delta.dx < -sensitivity) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Left Swipe"),
+            ));
+          }
+        });
   }
 }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/bottomNavBar.dart';
 
 class loginPage extends StatelessWidget {
-  static const String routeName = "/matchesPage";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,14 +66,18 @@ class loginPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/');
+                  },
                   child: const Text('Login'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/register');
+                  },
                   child: const Text('Register'),
                 ),
               ),
