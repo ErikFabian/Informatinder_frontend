@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/homePage.dart';
-import 'package:frontend_flutter/loginPage.dart';
 import 'package:frontend_flutter/matchingPage.dart';
 import 'package:frontend_flutter/matchesPage.dart';
 import 'package:frontend_flutter/settingsPage.dart';
@@ -10,9 +9,11 @@ void main() {
   runApp(MyApp());
 }
 
-final key = new GlobalKey<settingsPageState>();
+final key = GlobalKey<settingsPageState>();
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/main.dart';
 
 class settingsPage extends StatefulWidget {
   const settingsPage({Key? key}) : super(key: key);
