@@ -5,9 +5,8 @@ class loginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
+      appBar:
+          AppBar(title: const Text("Login"), automaticallyImplyLeading: false),
       body: Column(
         children: [
           Image.asset(
@@ -67,7 +66,7 @@ class loginPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/');
+                    Navigator.of(context).pushReplacementNamed('/');
                   },
                   child: const Text('Login'),
                 ),

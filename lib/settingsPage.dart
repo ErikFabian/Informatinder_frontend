@@ -113,7 +113,8 @@ class settingsPageState extends State<settingsPage> {
                               top: 32, left: 32, right: 32),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/login');
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/login');
                             },
                             child: const Text('Log out'),
                           ),
@@ -124,7 +125,8 @@ class settingsPageState extends State<settingsPage> {
                               top: 32, left: 32, right: 32),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/register');
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/login');
                             },
                             child: const Text('Delete Account'),
                           ),

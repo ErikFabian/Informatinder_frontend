@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/homePage.dart';
+import 'package:frontend_flutter/loginPage.dart';
 import 'package:frontend_flutter/matchingPage.dart';
 import 'package:frontend_flutter/matchesPage.dart';
 import 'package:frontend_flutter/settingsPage.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
       title: 'Informatinder',
       theme: ThemeData(
@@ -62,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: bodyFunction(),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: page,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
