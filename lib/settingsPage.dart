@@ -20,7 +20,7 @@ class settingPage extends State<settingsPage> {
         body: Column(
           children: [
             Image.asset(
-              'images/example.png',
+              'images/logo.png',
               width: 500,
               height: 100,
               fit: BoxFit.cover,

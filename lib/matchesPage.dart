@@ -4,7 +4,8 @@ import 'package:frontend_flutter/bottomNavBar.dart';
 class matchesPage extends StatelessWidget {
   static const String routeName = "/matchesPage";
 
-  Widget matchesSection(String profileName, String profile) {
+  Widget matchesSection(
+      String profileName, String profile, BuildContext context) {
     return Column(children: [
       Container(
         margin: const EdgeInsets.only(left: 8, right: 8),
@@ -32,7 +33,9 @@ class matchesPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/login');
+                    },
                     child: const Text('Profil'),
                   )
                 ]))
@@ -90,7 +93,7 @@ class matchesPage extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             for (int i = 0; i <= 15; i++)
-              matchesSection("name" + i.toString(), ""),
+              matchesSection("name" + i.toString(), "", context),
           ],
         ));
   }

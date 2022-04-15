@@ -3,6 +3,7 @@ import 'package:frontend_flutter/main.dart';
 import 'package:frontend_flutter/matchesPage.dart';
 import 'package:frontend_flutter/matchingPage.dart';
 import 'package:frontend_flutter/settingsPage.dart';
+import 'package:frontend_flutter/loginPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,6 +18,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => matchesPage());
       case '/settings':
         return MaterialPageRoute(builder: (_) => settingsPage());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => loginPage());
       default:
         return _errorRoute();
     }
