@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/main.dart';
 import 'package:frontend_flutter/matchesPage.dart';
 import 'package:frontend_flutter/matchingPage.dart';
+import 'package:frontend_flutter/registerPage.dart';
 import 'package:frontend_flutter/settingsPage.dart';
 import 'package:frontend_flutter/loginPage.dart';
 
@@ -20,6 +21,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => settingsPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => loginPage());
+      case '/register':
+        return MaterialPageRoute(builder: (_) => registerPage());
       default:
         return _errorRoute();
     }

@@ -116,7 +116,9 @@ class settingPage extends State<settingsPage> {
                               padding: const EdgeInsets.only(
                                   top: 32, left: 32, right: 32),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/login');
+                                },
                                 child: const Text('Log out'),
                               ),
                             )),
@@ -125,7 +127,9 @@ class settingPage extends State<settingsPage> {
                               padding: const EdgeInsets.only(
                                   top: 32, left: 32, right: 32),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/register');
+                                },
                                 child: const Text('Delete Account'),
                               ),
                             )),
