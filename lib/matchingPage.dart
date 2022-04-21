@@ -46,9 +46,9 @@ class matchingPage extends StatelessWidget {
     return GestureDetector(
         child: Column(children: [
           Image.asset(
-            'images/example.png',
+            'images/teacher_male.png',
             width: 600,
-            height: 240,
+            height: 300,
             fit: BoxFit.cover,
           ),
           titleSection,

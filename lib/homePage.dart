@@ -8,9 +8,9 @@ class homePage extends StatelessWidget {
     return Column(
       children: [
         Image.asset(
-          'images/example.png',
+          'images/teacher_female.png',
           width: 600,
-          height: 240,
+          height: 300,
           fit: BoxFit.cover,
         ),
         Container(
