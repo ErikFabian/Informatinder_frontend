@@ -115,7 +115,8 @@ class regPage extends State<registerPage> {
                             const EdgeInsets.only(top: 32, left: 32, right: 32),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacementNamed('/');
+                            Navigator.of(context)
+                                .pushNamedAndRemoveUntil('/', (r) => false);
                           },
                           child: const Text('Register'),
                         ),
