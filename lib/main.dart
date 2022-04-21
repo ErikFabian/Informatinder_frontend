@@ -69,19 +69,19 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.touch_app),
               label: 'Matchen',
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
               label: 'Matches',
-              backgroundColor: Colors.black),
+              backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
-              backgroundColor: Colors.black)
+              backgroundColor: Colors.blue)
         ],
         onTap: (index) {
           setState(() {
