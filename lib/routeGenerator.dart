@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/main.dart';
-import 'package:frontend_flutter/matchesPage.dart';
-import 'package:frontend_flutter/matchingPage.dart';
 import 'package:frontend_flutter/registerPage.dart';
-import 'package:frontend_flutter/settingsPage.dart';
 import 'package:frontend_flutter/loginPage.dart';
 
 class RouteGenerator {
@@ -13,12 +10,6 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => MyHomePage());
-      case '/matching':
-        return MaterialPageRoute(builder: (_) => matchingPage());
-      case '/matches':
-        return MaterialPageRoute(builder: (_) => matchesPage());
-      case '/settings':
-        return MaterialPageRoute(builder: (_) => settingsPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => loginPage());
       case '/register':
@@ -32,9 +23,9 @@ class RouteGenerator {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('ERROR'),
         ),
       );
