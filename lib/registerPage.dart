@@ -100,7 +100,7 @@ class regPage extends State<registerPage> {
                         ),
                       ),
                       CheckboxListTile(
-                        title: const Text("Notifications"),
+                        title: const Text("Company"),
                         value: company,
                         onChanged: (value) {
                           setState(() {
