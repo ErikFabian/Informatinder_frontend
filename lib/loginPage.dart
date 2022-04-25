@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/User.dart';
 import 'package:frontend_flutter/userPreferences.dart';
@@ -12,18 +14,13 @@ class loginPage extends StatelessWidget {
 
   Future<bool> login(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://localhost:8080/user/auth/login'),
+      Uri.parse('http://10.0.2.2:8080/user/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{'email': email, 'password': password}),
     );
-
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      // UserPreferences().saveUser();
-
       final Map<String, dynamic> responseData = json.decode(response.body);
       var userData = responseData['data'];
 
@@ -32,8 +29,6 @@ class loginPage extends StatelessWidget {
 
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
       throw Exception('Failed to login.');
     }
   }

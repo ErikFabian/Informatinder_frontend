@@ -19,7 +19,7 @@ class regPage extends State<registerPage> {
   Future<bool> register(String email, String username, String password,
       String confirmPassword) async {
     final response = await http.post(
-      Uri.parse('http://localhost:8080/user/auth/register'),
+      Uri.parse('http://10.0.2.2:8080/user/auth/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -27,11 +27,11 @@ class regPage extends State<registerPage> {
         'email': email,
         'username': username,
         'password': password,
-        'repeatPassword': confirmPassword
+        'confirmPassword': confirmPassword
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
       // UserPreferences().saveUser();
@@ -168,13 +168,11 @@ class regPage extends State<registerPage> {
                                         {
                                           {
                                             Navigator.of(context)
-                                                .pushReplacementNamed('/login')
+                                                .pushNamedAndRemoveUntil(
+                                                    '/login', (r) => false)
                                           }
                                         }
                                     });
-
-                            Navigator.of(context)
-                                .pushNamedAndRemoveUntil('/', (r) => false);
                           },
                           child: const Text('Register'),
                         ),
