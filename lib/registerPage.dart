@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/userPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -26,7 +25,7 @@ class regPage extends State<registerPage> {
       },
       body: jsonEncode(<String, String>{
         'email': email,
-        username: username,
+        'username': username,
         'password': password,
         'repeatPassword': confirmPassword
       }),
