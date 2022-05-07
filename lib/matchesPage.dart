@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class matchesPage extends StatelessWidget {
-  Widget matchesSection(String profileName, String profile) {
+  Widget matchesSection(
+      String profileName, String profile, BuildContext context) {
     return Column(children: [
       Container(
         margin: const EdgeInsets.only(left: 8, right: 8),
@@ -29,7 +30,9 @@ class matchesPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/profile');
+                    },
                     child: const Text('Profil'),
                   )
                 ]))
@@ -43,7 +46,8 @@ class matchesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        for (int i = 0; i <= 15; i++) matchesSection("name" + i.toString(), ""),
+        for (int i = 0; i <= 15; i++)
+          matchesSection("name" + i.toString(), "", context),
       ],
     );
   }

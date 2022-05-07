@@ -7,12 +7,12 @@ class homePage extends StatefulWidget {
 
 class homePageState extends State<homePage> {
   static const String routeName = "/matchesPage";
-  TextEditingController profileTextController = TextEditingController();
+
+  final TextEditingController _profileTextController =
+      TextEditingController(text: "Test");
+  //TODO: Hier Text aus der DB holen und in profileText abspeichern
 
   bool editable = false;
-
-  //TODO: Hier Text aus der DB holen und in profileText abspeichern
-  String profileText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,7 @@ class homePageState extends State<homePage> {
                         icon: const Icon(Icons.edit_outlined),
                         onPressed: () {
                           if (editable) {
-                            profileText = profileTextController.text;
-                            //TODO: Hier Text absenden der in der profileText var steht
+                            //TODO: Hier Text absenden der in der _profileTextController.text steht
                           }
                           setState(() {
                             editable = !editable;
@@ -73,11 +72,10 @@ class homePageState extends State<homePage> {
                 Padding(
                   padding: const EdgeInsets.all(32),
                   child: TextFormField(
-                    controller: profileTextController,
+                    controller: _profileTextController,
                     enabled: editable,
                     maxLines: null,
                     style: const TextStyle(fontSize: 14),
-                    initialValue: profileText,
                   ),
                 )
               ],
