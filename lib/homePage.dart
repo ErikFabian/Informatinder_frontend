@@ -7,7 +7,12 @@ class homePage extends StatefulWidget {
 
 class homePageState extends State<homePage> {
   static const String routeName = "/matchesPage";
+  TextEditingController profileTextController = TextEditingController();
+
   bool editable = false;
+
+  //TODO: Hier Text aus der DB holen und in profileText abspeichern
+  String profileText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,10 @@ class homePageState extends State<homePage> {
                       IconButton(
                         icon: const Icon(Icons.edit_outlined),
                         onPressed: () {
+                          if (editable) {
+                            profileText = profileTextController.text;
+                            //TODO: Hier Text absenden der in der profileText var steht
+                          }
                           setState(() {
                             editable = !editable;
                           });
@@ -64,11 +73,11 @@ class homePageState extends State<homePage> {
                 Padding(
                   padding: const EdgeInsets.all(32),
                   child: TextFormField(
+                    controller: profileTextController,
                     enabled: editable,
                     maxLines: null,
                     style: const TextStyle(fontSize: 14),
-                    initialValue:
-                        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ut labore et dolore magna  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
+                    initialValue: profileText,
                   ),
                 )
               ],
