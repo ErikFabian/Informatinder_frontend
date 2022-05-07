@@ -47,144 +47,146 @@ class regPage extends State<registerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("Register"),
-      ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: const Text(
-                          'E-Mail',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TextFormField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: const Text(
-                          'Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: const Text(
-                          'Confirm Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TextFormField(
-                          controller: _confirmPasswordController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: const Text(
-                          'Name',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TextFormField(
-                          controller: _usernameController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: const Text(
-                          'Geburtdatum',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 16),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                        ),
-                      ),
-                      CheckboxListTile(
-                        title: const Text("Company"),
-                        value: company,
-                        onChanged: (value) {
-                          setState(() {
-                            company = value!;
-                          });
-                        },
-                        controlAffinity: ListTileControlAffinity.leading,
-                      ),
-                      Container(
-                          child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 32, left: 32, right: 32),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            String email = _emailController.text;
-                            String username = _usernameController.text;
-                            String password = _passwordController.text;
-                            String confirmPassword =
-                                _confirmPasswordController.text;
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text("Register"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: const Text(
+                              'E-Mail',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextFormField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: const Text(
+                              'Password',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextFormField(
+                              controller: _passwordController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: const Text(
+                              'Confirm Password',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextFormField(
+                              controller: _confirmPasswordController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: const Text(
+                              'Name',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextFormField(
+                              controller: _usernameController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: const Text(
+                              'Geburtdatum',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          CheckboxListTile(
+                            title: const Text("Company"),
+                            value: company,
+                            onChanged: (value) {
+                              setState(() {
+                                company = value!;
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                          Container(
+                              child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 32, left: 32, right: 32),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                String email = _emailController.text;
+                                String username = _usernameController.text;
+                                String password = _passwordController.text;
+                                String confirmPassword =
+                                    _confirmPasswordController.text;
 
-                            register(email, username, password, confirmPassword)
-                                .then((value) => {
-                                      if (value)
-                                        {
-                                          {
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil(
-                                                    '/login', (r) => false)
-                                          }
-                                        }
-                                    });
-                          },
-                          child: const Text('Register'),
-                        ),
-                      ))
-                    ],
-                  ),
+                                register(email, username, password,
+                                        confirmPassword)
+                                    .then((value) => {
+                                          if (value)
+                                            {
+                                              {
+                                                Navigator.of(context)
+                                                    .pushNamedAndRemoveUntil(
+                                                        '/login', (r) => false)
+                                              }
+                                            }
+                                        });
+                              },
+                              child: const Text('Register'),
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
