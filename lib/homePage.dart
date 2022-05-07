@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/profile.dart';
+import 'package:frontend_flutter/userPreferences.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class homePage extends StatefulWidget {
   const homePage({Key? key}) : super(key: key);
@@ -14,6 +20,36 @@ class homePageState extends State<homePage> {
 
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
+
+  Future<Profile> getProfile() async {
+    String? id = await UserPreferences().getId();
+
+    final response = await http.get(
+      Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData['profile'];
+    } else {
+      throw Exception("No Profile found");
+    }
+  }
+
+  Future<Profile> updateProfile() async {
+    String? id = await UserPreferences().getId();
+
+    final response = await http.patch(
+        Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
+        body: {});
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData['profile'];
+    } else {
+      throw Exception("No Profile found");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
