@@ -108,10 +108,7 @@ class loginPage extends StatelessWidget {
 
                         login(email, password).then((value) => {
                               if (value)
-                                {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/')
-                                }
+                                {}
                               else
                                 {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -120,6 +117,7 @@ class loginPage extends StatelessWidget {
                                               Text("Wrong Password or Email")))
                                 }
                             });
+                        Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: const Text('Login'),
                     ),
