@@ -31,7 +31,7 @@ class homePageState extends State<homePage> {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
 
-      return Profile.fromJson(responseData);
+      return Profile.fromJson(responseData['profile']);
     } else {
       throw Exception("No Profile found");
     }

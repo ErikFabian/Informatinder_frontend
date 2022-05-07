@@ -13,10 +13,10 @@ class Profile {
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      id: json['profile']['id'],
-      name: json['profile']['name'],
-      description: json['profile']['description'],
-      isBetrieb: json['profile']['isBetrieb'],
+      id: json['id'],
+      name: json['name'],
+      description: json['description'],
+      isBetrieb: json['isBetrieb'],
     );
   }
 }
