@@ -41,6 +41,9 @@ class loginPage extends StatelessWidget {
         appBar: AppBar(
             title: const Text("Login"), automaticallyImplyLeading: false),
         body: SingleChildScrollView(
+            child: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: [
               Image.asset(
@@ -138,6 +141,6 @@ class loginPage extends StatelessWidget {
               )
             ],
           ),
-        ));
+        )));
   }
 }

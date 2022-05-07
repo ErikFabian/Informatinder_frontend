@@ -14,9 +14,11 @@ class homePage extends StatefulWidget {
 class homePageState extends State<homePage> {
   static const String routeName = "/matchesPage";
 
+  //TODO: Hier Text aus der DB holen und in profileText abspeichern
   final TextEditingController _profileTextController =
       TextEditingController(text: "Test");
-  //TODO: Hier Text aus der DB holen und in profileText abspeichern
+  final TextEditingController _nameTextController =
+      TextEditingController(text: "*Name*");
 
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
@@ -70,18 +72,17 @@ class homePageState extends State<homePage> {
                   child: Row(
                     children: [
                       Expanded(
-                        /*1*/
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            /*2*/
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: const Text(
-                                '*Name*',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 30),
-                              ),
+                            TextFormField(
+                              controller: _nameTextController,
+                              enabled: editable,
+                              maxLines: null,
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none),
+                              style: const TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               'Betrieb/Bewerber',
@@ -96,7 +97,10 @@ class homePageState extends State<homePage> {
                         radius: 30,
                         backgroundColor: editableButtonColor,
                         child: IconButton(
-                          icon: const Icon(Icons.edit_outlined),
+                          icon: const Icon(
+                            Icons.edit_outlined,
+                            color: Colors.black,
+                          ),
                           onPressed: () {
                             if (editable) {
                               editableButtonColor = Colors.transparent;

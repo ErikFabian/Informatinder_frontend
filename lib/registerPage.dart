@@ -52,6 +52,9 @@ class regPage extends State<registerPage> {
           title: const Text("Register"),
         ),
         body: SingleChildScrollView(
+            child: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: [
               Container(
@@ -187,6 +190,6 @@ class regPage extends State<registerPage> {
               ),
             ],
           ),
-        ));
+        )));
   }
 }

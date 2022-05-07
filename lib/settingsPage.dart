@@ -12,7 +12,8 @@ class settingsPageState extends State<settingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       children: [
         Image.asset(
           'images/logo.png',
@@ -139,6 +140,6 @@ class settingsPageState extends State<settingsPage> {
           ),
         )
       ],
-    );
+    ));
   }
 }
