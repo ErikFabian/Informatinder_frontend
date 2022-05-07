@@ -6,6 +6,8 @@ class UserPreferences {
   Future<bool> saveUser(User user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    prefs.setString("id", user.id.toString());
+    prefs.setString("username", user.username);
     prefs.setString("email", user.email);
     prefs.setString("password", user.password);
     prefs.setString("token", user.token);
@@ -16,16 +18,30 @@ class UserPreferences {
   Future<User> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    String? id_string = prefs.getString("id");
+    int id = 0;
+    String? username = prefs.getString("username");
     String? email = prefs.getString("email");
     String? password = prefs.getString("password");
     String? token = prefs.getString("token");
 
-    return User(email: email!, password: password!, token: token!);
+    if (id_string != null) {
+      id = int.parse(id_string);
+    }
+
+    return User(
+        id: id,
+        username: username!,
+        email: email!,
+        password: password!,
+        token: token!);
   }
 
   void removeUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    prefs.remove("id");
+    prefs.remove("username");
     prefs.remove("email");
     prefs.remove("password");
     prefs.remove("token");
