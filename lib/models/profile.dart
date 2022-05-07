@@ -1,25 +1,22 @@
 class Profile {
   int id;
-  String firstname;
-  String lastname;
+  String name;
   String description;
   bool isBetrieb;
 
   Profile({
     required this.id,
-    required this.firstname,
-    required this.lastname,
+    required this.name,
     required this.description,
     required this.isBetrieb,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      id: json['id'],
-      firstname: json['firstname'],
-      lastname: json['name'],
-      description: json['description'],
-      isBetrieb: json['benefits'],
+      id: json['profile']['id'],
+      name: json['profile']['name'],
+      description: json['profile']['description'],
+      isBetrieb: json['profile']['isBetrieb'],
     );
   }
 }

@@ -30,7 +30,7 @@ class loginPage extends StatelessWidget {
 
       return true;
     } else {
-      throw Exception('Failed to login.');
+      return false;
     }
   }
 

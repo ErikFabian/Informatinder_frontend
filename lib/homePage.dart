@@ -14,11 +14,8 @@ class homePage extends StatefulWidget {
 class homePageState extends State<homePage> {
   static const String routeName = "/matchesPage";
 
-  //TODO: Hier Text aus der DB holen und in profileText abspeichern
-  final TextEditingController _profileTextController =
-      TextEditingController(text: "Test");
-  final TextEditingController _nameTextController =
-      TextEditingController(text: "*Name*");
+  final TextEditingController _profileTextController = TextEditingController();
+  final TextEditingController _profileNameController = TextEditingController();
 
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
@@ -32,101 +29,133 @@ class homePageState extends State<homePage> {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      return responseData['profile'];
+
+      return Profile.fromJson(responseData);
     } else {
       throw Exception("No Profile found");
     }
   }
 
-  Future<Profile> updateProfile() async {
+  void updateProfile(String name, String description, bool isBetrieb) async {
     String? id = await UserPreferences().getId();
+    String? token = await UserPreferences().getToken();
 
     final response = await http.patch(
         Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
-        body: {});
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-access-token': token!,
+        },
+        body: jsonEncode(<String, String>{
+          'name': name,
+          'description': description,
+          'isBetrieb': isBetrieb.toString()
+        }));
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      return responseData['profile'];
-    } else {
+    if (response.statusCode != 200) {
       throw Exception("No Profile found");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              children: [
-                Image.asset(
-                  'images/teacher_female.png',
-                  width: 600,
-                  height: 300,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
-                              controller: _nameTextController,
+    return FutureBuilder<Profile>(
+        future: getProfile(),
+        builder: (BuildContext context, AsyncSnapshot<Profile> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: Text('Loading'));
+          } else {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              Profile profile = snapshot.data!;
+              if (!editable) {
+                _profileNameController.text = profile.name;
+                _profileTextController.text = profile.description;
+              }
+
+              return SingleChildScrollView(
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'images/teacher_female.png',
+                            width: 600,
+                            height: 300,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 32, left: 32, right: 32),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextFormField(
+                                        controller: _profileNameController,
+                                        enabled: editable,
+                                        maxLines: null,
+                                        decoration: const InputDecoration(
+                                            border: InputBorder.none),
+                                        style: const TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Betrieb/Bewerber',
+                                        style: TextStyle(
+                                          color: Colors.grey[500],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: editableButtonColor,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.edit_outlined,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: () {
+                                      if (editable) {
+                                        editableButtonColor =
+                                            Colors.transparent;
+                                        updateProfile(
+                                            _profileNameController.text,
+                                            _profileTextController.text,
+                                            false);
+                                      } else {
+                                        editableButtonColor = Colors.blue;
+                                      }
+                                      setState(() {
+                                        editable = !editable;
+                                      });
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(32),
+                            child: TextFormField(
+                              controller: _profileTextController,
                               enabled: editable,
                               maxLines: null,
-                              decoration: const InputDecoration(
-                                  border: InputBorder.none),
-                              style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontSize: 14),
                             ),
-                            Text(
-                              'Betrieb/Bewerber',
-                              style: TextStyle(
-                                color: Colors.grey[500],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: editableButtonColor,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.edit_outlined,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {
-                            if (editable) {
-                              editableButtonColor = Colors.transparent;
-                              //TODO: Hier Text absenden der in der _profileTextController.text steht
-                            } else {
-                              editableButtonColor = Colors.blue;
-                            }
-                            setState(() {
-                              editable = !editable;
-                            });
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: TextFormField(
-                    controller: _profileTextController,
-                    enabled: editable,
-                    maxLines: null,
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                )
-              ],
-            )));
+                          )
+                        ],
+                      )));
+            }
+          }
+        });
   }
 }
