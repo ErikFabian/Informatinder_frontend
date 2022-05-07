@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/profile.dart';
+import 'package:frontend_flutter/userPreferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class matchesPage extends StatelessWidget {
+  Future<List<Profile>> getMatches() async {
+    String? token = await UserPreferences().getToken();
+
+    final response = await http.get(
+      Uri.parse('http://10.0.2.2:8080/matches' + token.toString()),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData['profiles'];
+    } else {
+      throw Exception("No Matches found");
+    }
+  }
+
   Widget matchesSection(
       String profileName, String profile, BuildContext context) {
     return Column(children: [
