@@ -9,7 +9,6 @@ class UserPreferences {
     prefs.setString("id", user.id.toString());
     prefs.setString("username", user.username);
     prefs.setString("email", user.email);
-    prefs.setString("password", user.password);
     prefs.setString("token", user.token);
 
     return true;
@@ -22,19 +21,13 @@ class UserPreferences {
     int id = 0;
     String? username = prefs.getString("username");
     String? email = prefs.getString("email");
-    String? password = prefs.getString("password");
     String? token = prefs.getString("token");
 
     if (id_string != null) {
       id = int.parse(id_string);
     }
 
-    return User(
-        id: id,
-        username: username!,
-        email: email!,
-        password: password!,
-        token: token!);
+    return User(id: id, username: username!, email: email!, token: token!);
   }
 
   void removeUser() async {
@@ -43,7 +36,6 @@ class UserPreferences {
     prefs.remove("id");
     prefs.remove("username");
     prefs.remove("email");
-    prefs.remove("password");
     prefs.remove("token");
   }
 

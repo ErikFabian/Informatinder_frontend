@@ -23,9 +23,8 @@ class loginPage extends StatelessWidget {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      var userData = responseData['data'];
 
-      User user = User.fromJson(userData);
+      User user = User.fromJson(responseData);
 
       UserPreferences().saveUser(user);
 
@@ -107,8 +106,20 @@ class loginPage extends StatelessWidget {
                         String email = _usernameController.text;
                         String password = _passwordController.text;
 
-                        login(email, password).then((value) => {if (value) {}});
-                        Navigator.of(context).pushReplacementNamed('/');
+                        login(email, password).then((value) => {
+                              if (value)
+                                {
+                                  Navigator.of(context)
+                                      .pushReplacementNamed('/')
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Wrong Password or Email")))
+                                }
+                            });
                       },
                       child: const Text('Login'),
                     ),

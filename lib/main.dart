@@ -43,15 +43,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bodyFunction() {
     switch (page) {
       case 0:
-        return homePage();
+        return homePage(key: key);
       case 1:
         return matchingPage();
       case 2:
         return matchesPage();
       default:
-        return settingsPage(
-          key: key,
-        );
+        return settingsPage(key: key);
     }
   }
 
