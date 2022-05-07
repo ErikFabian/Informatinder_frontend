@@ -2,10 +2,32 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:swipe_cards/swipe_cards.dart';
+import 'package:frontend_flutter/models/profile.dart';
+import 'package:frontend_flutter/userPreferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class matchingPage extends StatelessWidget {
   late MatchEngine _matchEngine;
   List<SwipeItem> _swipeItems = <SwipeItem>[];
+
+  Future<List<Profile>> getProfile(int page) async {
+    String? token = await UserPreferences().getToken();
+
+    final response = await http.get(
+        Uri.parse('http://10.0.2.2:8080/swipe/' + page.toString() + "/5"),
+        headers: <String, String>{
+          'x-access-token': token!,
+        });
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      return responseData['profiles'];
+    } else {
+      throw Exception("No Profiles found");
+    }
+  }
 
   //TODO Hier daten der Profile im Stack einfügen
   void initState(BuildContext context) {
