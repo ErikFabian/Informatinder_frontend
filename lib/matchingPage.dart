@@ -7,6 +7,7 @@ class matchingPage extends StatelessWidget {
   late MatchEngine _matchEngine;
   List<SwipeItem> _swipeItems = <SwipeItem>[];
 
+  //TODO Hier daten der Profile im Stack einfügen
   void initState(BuildContext context) {
     for (int i = 0; i < 10; i++) {
       _swipeItems.add(SwipeItem(
