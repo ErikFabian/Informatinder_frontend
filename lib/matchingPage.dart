@@ -16,12 +16,14 @@ class matchingPage extends StatelessWidget {
             "This is Profile " +
             i.toString(),
         likeAction: () {
+          //Hier like ans Backend senden
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Right Swipe (Like)"),
             duration: Duration(milliseconds: 500),
           ));
         },
         nopeAction: () {
+          //Hier dislike ans Backend senden
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Left Swipe (Nope)"),
             duration: Duration(milliseconds: 500),
