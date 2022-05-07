@@ -13,6 +13,7 @@ class homePageState extends State<homePage> {
   //TODO: Hier Text aus der DB holen und in profileText abspeichern
 
   bool editable = false;
+  Color editableButtonColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +56,24 @@ class homePageState extends State<homePage> {
                           ],
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.edit_outlined),
-                        onPressed: () {
-                          if (editable) {
-                            //TODO: Hier Text absenden der in der _profileTextController.text steht
-                          }
-                          setState(() {
-                            editable = !editable;
-                          });
-                        },
-                      ),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: editableButtonColor,
+                        child: IconButton(
+                          icon: const Icon(Icons.edit_outlined),
+                          onPressed: () {
+                            if (editable) {
+                              editableButtonColor = Colors.transparent;
+                              //TODO: Hier Text absenden der in der _profileTextController.text steht
+                            } else {
+                              editableButtonColor = Colors.blue;
+                            }
+                            setState(() {
+                              editable = !editable;
+                            });
+                          },
+                        ),
+                      )
                     ],
                   ),
                 ),
