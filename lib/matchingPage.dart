@@ -66,7 +66,7 @@ class matchingPage extends StatelessWidget {
                                   '*Name*',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 30),
+                                      fontSize: 25),
                                 ),
                               ),
                               Text(

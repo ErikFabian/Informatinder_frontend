@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/userPreferences.dart';
 
@@ -98,12 +99,15 @@ class homePageState extends State<homePage> {
                                     children: [
                                       TextFormField(
                                         controller: _profileNameController,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(50),
+                                        ],
                                         enabled: editable,
                                         maxLines: null,
                                         decoration: const InputDecoration(
                                             border: InputBorder.none),
                                         style: const TextStyle(
-                                            fontSize: 30,
+                                            fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
