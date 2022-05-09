@@ -6,10 +6,15 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class matchingPage extends StatelessWidget {
+class matchingPage extends StatefulWidget {
+  const matchingPage({Key? key}) : super(key: key);
+  matchingPageState createState() => matchingPageState();
+}
+
+class matchingPageState extends State<matchingPage> {
   late MatchEngine _matchEngine;
   List<SwipeItem> _swipeItems = <SwipeItem>[];
-  int thisPage = 0;
+  int thisPage = 1;
 
   Future<List<Profile>> getProfile(int page) async {
     String? token = await UserPreferences().getToken();
@@ -32,7 +37,8 @@ class matchingPage extends StatelessWidget {
     }
   }
 
-  void initState(BuildContext context, List<Profile> inputProfiles) {
+  void initSwipeState(BuildContext context, List<Profile> inputProfiles) {
+    _swipeItems.clear();
     for (int i = 0; i < inputProfiles.length; i++) {
       _swipeItems.add(SwipeItem(
         content: Profile(
@@ -71,7 +77,7 @@ class matchingPage extends StatelessWidget {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
               List<Profile> profiles = snapshot.data!;
-              initState(context, profiles);
+              initSwipeState(context, profiles);
               return SwipeCards(
                 matchEngine: _matchEngine,
                 itemBuilder: (BuildContext context, int index) {
@@ -129,7 +135,7 @@ class matchingPage extends StatelessWidget {
                           ])));
                 },
                 onStackFinished: () {
-                  //TODO get new Stack from backend
+                  setState(() {});
                 },
                 upSwipeAllowed: false,
                 fillSpace: true,

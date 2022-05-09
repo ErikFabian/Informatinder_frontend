@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 0:
         return homePage(key: key);
       case 1:
-        return matchingPage();
+        return matchingPage(key: key);
       case 2:
         return matchesPage();
       default:
