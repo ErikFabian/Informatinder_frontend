@@ -133,9 +133,6 @@ class matchingPage extends StatelessWidget {
                 onStackFinished: () {
                   //TODO get new Stack from backend
                 },
-                itemChanged: (SwipeItem item, int index) {
-                  //man könnte hier noch was machen
-                },
                 upSwipeAllowed: false,
                 fillSpace: true,
               );
