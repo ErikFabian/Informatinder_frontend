@@ -37,6 +37,32 @@ class matchingPageState extends State<matchingPage> {
     }
   }
 
+  void sendLike(int id) async {
+    String? token = await UserPreferences().getToken();
+
+    final response = await http.get(
+        Uri.parse('http://10.0.2.2:8080/like/' + id.toString()),
+        headers: <String, String>{
+          'x-access-token': token!,
+        });
+    if (response.statusCode != 200) {
+      throw Exception("No Profiles found");
+    }
+  }
+
+  void sendDislike(int id) async {
+    String? token = await UserPreferences().getToken();
+
+    final response = await http.get(
+        Uri.parse('http://10.0.2.2:8080/dislike/' + id.toString()),
+        headers: <String, String>{
+          'x-access-token': token!,
+        });
+    if (response.statusCode != 200) {
+      throw Exception("No Profiles found");
+    }
+  }
+
   void initSwipeState(BuildContext context, List<Profile> inputProfiles) {
     _swipeItems.clear();
     for (int i = 0; i < inputProfiles.length; i++) {
@@ -47,14 +73,14 @@ class matchingPageState extends State<matchingPage> {
             description: inputProfiles[i].description,
             isBetrieb: inputProfiles[i].isBetrieb),
         likeAction: () {
-          //Hier like ans Backend senden
+          sendLike(inputProfiles[i].id);
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Right Swipe (Like)"),
             duration: Duration(milliseconds: 500),
           ));
         },
         nopeAction: () {
-          //Hier dislike ans Backend senden
+          sendDislike(inputProfiles[i].id);
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Left Swipe (Nope)"),
             duration: Duration(milliseconds: 500),
