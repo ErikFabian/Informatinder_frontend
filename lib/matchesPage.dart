@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/profile.dart';
+import 'package:frontend_flutter/profilePage.dart';
 import 'package:frontend_flutter/userPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -22,7 +23,7 @@ class matchesPage extends StatelessWidget {
   }
 
   Widget matchesSection(
-      String profileName, String profile, BuildContext context) {
+      String profileName, int profileID, BuildContext context) {
     return Column(children: [
       Container(
         margin: const EdgeInsets.only(left: 8, right: 8),
@@ -51,7 +52,14 @@ class matchesPage extends StatelessWidget {
                     children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/profile');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => profilePage(
+                            key: key!,
+                            profileID: profileID,
+                          ),
+                        ),
+                      );
                     },
                     child: const Text('Profil'),
                   )
@@ -67,7 +75,7 @@ class matchesPage extends StatelessWidget {
     return ListView(
       children: <Widget>[
         for (int i = 0; i <= 15; i++)
-          matchesSection("name" + i.toString(), "", context),
+          matchesSection("name" + i.toString(), i, context),
       ],
     );
   }
