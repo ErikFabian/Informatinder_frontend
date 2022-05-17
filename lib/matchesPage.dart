@@ -85,7 +85,7 @@ class matchesPage extends StatelessWidget {
               List<Profile> profiles = snapshot.data!;
               return ListView(
                 children: <Widget>[
-                  for (int i = 0; i <= 15; i++)
+                  for (int i = 0; i < profiles.length; i++)
                     matchesSection(profiles[i].name, profiles[i].id, context),
                 ],
               );
