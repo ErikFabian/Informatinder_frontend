@@ -46,7 +46,7 @@ class matchingPageState extends State<matchingPage> {
           'x-access-token': token!,
         });
     if (response.statusCode != 200) {
-      throw Exception("No Profiles found");
+      throw Exception("Like not send");
     }
   }
 
@@ -59,7 +59,7 @@ class matchingPageState extends State<matchingPage> {
           'x-access-token': token!,
         });
     if (response.statusCode != 200) {
-      throw Exception("No Profiles found");
+      throw Exception("Dislike not send");
     }
   }
 
