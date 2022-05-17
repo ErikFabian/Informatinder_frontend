@@ -15,10 +15,13 @@ class matchesPage extends StatelessWidget {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      return responseData['profiles'];
+      Map<String, dynamic> responseData = json.decode(response.body);
+      List iterProfiles = responseData['profiles'];
+      List<Profile> profiles = List<Profile>.from(
+          iterProfiles.map((model) => Profile.fromJson(model)));
+      return profiles;
     } else {
-      throw Exception("No Matches found");
+      throw Exception("No Profiles found");
     }
   }
 
@@ -37,12 +40,10 @@ class matchesPage extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Text(
-                        profileName,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30),
-                      ),
+                    Text(
+                      profileName,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 30),
                     ),
                   ]),
             ),
@@ -72,11 +73,24 @@ class matchesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        for (int i = 0; i <= 15; i++)
-          matchesSection("name" + i.toString(), i, context),
-      ],
-    );
+    return FutureBuilder<List<Profile>>(
+        future: getMatches(),
+        builder: (BuildContext context, AsyncSnapshot<List<Profile>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: Text('Loading'));
+          } else {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              List<Profile> profiles = snapshot.data!;
+              return ListView(
+                children: <Widget>[
+                  for (int i = 0; i <= 15; i++)
+                    matchesSection(profiles[i].name, profiles[i].id, context),
+                ],
+              );
+            }
+          }
+        });
   }
 }

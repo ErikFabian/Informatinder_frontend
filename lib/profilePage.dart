@@ -24,12 +24,17 @@ Future<Profile> getProfile(int id) async {
 }
 
 class profilePage extends StatelessWidget {
-  @override
   final int profileID;
+
+  final TextEditingController _profileTextController = TextEditingController();
+  final TextEditingController _profileNameController = TextEditingController();
+
   profilePage({required Key key, required this.profileID}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<Profile>(
-        future: getProfile(),
+        future: getProfile(profileID),
         builder: (BuildContext context, AsyncSnapshot<Profile> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: Text('Loading'));
@@ -38,65 +43,69 @@ class profilePage extends StatelessWidget {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
               Profile profile = snapshot.data!;
-              if (!editable) {
-                _profileNameController.text = profile.name;
-                _profileTextController.text = profile.description;
-              }
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(title: const Text("InformaTinder")),
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'images/teacher_female.png',
-                      width: 600,
-                      height: 300,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      padding:
-                          const EdgeInsets.only(top: 32, left: 32, right: 32),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    '*Name*',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25),
-                                  ),
+              _profileNameController.text = profile.name;
+              _profileTextController.text = profile.description;
+
+              return Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  appBar: AppBar(title: const Text("InformaTinder")),
+                  body: SingleChildScrollView(
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'images/teacher_female.png',
+                                width: 600,
+                                height: 300,
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    top: 32, left: 32, right: 32),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller: _profileNameController,
+                                            enabled: false,
+                                            maxLines: null,
+                                            decoration: const InputDecoration(
+                                                border: InputBorder.none),
+                                            style: const TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            'Betrieb/Bewerber',
+                                            style: TextStyle(
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  'Betrieb/Bewerber',
-                                  style: TextStyle(
-                                    color: Colors.grey[500],
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(32),
+                                child: TextFormField(
+                                  controller: _profileTextController,
+                                  enabled: false,
+                                  maxLines: null,
+                                  style: const TextStyle(fontSize: 14),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: TextFormField(
-                        enabled: false,
-                        maxLines: null,
-                        style: const TextStyle(fontSize: 14),
-                        initialValue: "profileText",
-                      ),
-                    )
-                  ],
-                ))));
+                              )
+                            ],
+                          ))));
+            }
+          }
+        });
   }
 }
