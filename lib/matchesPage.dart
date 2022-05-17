@@ -14,6 +14,7 @@ class matchesPage extends StatelessWidget {
       Uri.parse('http://10.0.2.2:8080/matches'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'x-access-token': token!,
       },
     );
 
