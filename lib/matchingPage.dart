@@ -40,8 +40,8 @@ class matchingPageState extends State<matchingPage> {
   void sendLike(int id) async {
     String? token = await UserPreferences().getToken();
 
-    final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/like/' + id.toString()),
+    final response = await http.post(
+        Uri.parse('http://10.0.2.2:8080/matches/like/' + id.toString()),
         headers: <String, String>{
           'x-access-token': token!,
         });
@@ -53,8 +53,8 @@ class matchingPageState extends State<matchingPage> {
   void sendDislike(int id) async {
     String? token = await UserPreferences().getToken();
 
-    final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/dislike/' + id.toString()),
+    final response = await http.post(
+        Uri.parse('http://10.0.2.2:8080/matches/dislike/' + id.toString()),
         headers: <String, String>{
           'x-access-token': token!,
         });

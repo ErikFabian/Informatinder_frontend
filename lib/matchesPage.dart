@@ -29,8 +29,7 @@ class matchesPage extends StatelessWidget {
     }
   }
 
-  Widget matchesSection(
-      String profileName, int profileID, BuildContext context) {
+  Widget matchesSection(Profile profile, BuildContext context) {
     return Column(children: [
       Container(
         margin: const EdgeInsets.only(left: 8, right: 8),
@@ -45,7 +44,7 @@ class matchesPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      profileName,
+                      profile.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 30),
                     ),
@@ -60,8 +59,11 @@ class matchesPage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) => profilePage(
-                            key: key!,
-                            profileID: profileID,
+                            key: key,
+                            profileID: profile.id,
+                            profileName: profile.name,
+                            profileDescription: profile.description,
+                            isBetrieb: profile.isBetrieb,
                           ),
                         ),
                       );
@@ -90,7 +92,7 @@ class matchesPage extends StatelessWidget {
               return ListView(
                 children: <Widget>[
                   for (int i = 0; i < profiles.length; i++)
-                    matchesSection(profiles[i].name, profiles[i].id, context),
+                    matchesSection(profiles[i], context),
                 ],
               );
             }
