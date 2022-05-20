@@ -11,7 +11,7 @@ class matchesPage extends StatelessWidget {
     String? token = await UserPreferences().getToken();
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/matches'),
+      Uri.parse('http://h2973117.stratoserver.net:8080/matches'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'x-access-token': token!,

@@ -25,7 +25,8 @@ class homePageState extends State<homePage> {
     String? id = await UserPreferences().getId();
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
+      Uri.parse(
+          'http://h2973117.stratoserver.net:8080/profile/' + id.toString()),
     );
 
     if (response.statusCode == 200) {
@@ -42,7 +43,8 @@ class homePageState extends State<homePage> {
     String? token = await UserPreferences().getToken();
 
     final response = await http.patch(
-        Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
+        Uri.parse(
+            'http://h2973117.stratoserver.net:8080/profile/' + id.toString()),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-access-token': token!,

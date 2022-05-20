@@ -12,7 +12,7 @@ class loginPage extends StatelessWidget {
 
   Future<bool> login(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/user/auth/login'),
+      Uri.parse('http://h2973117.stratoserver.net:8080/user/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -21,7 +21,9 @@ class matchingPageState extends State<matchingPage> {
     thisPage++;
 
     final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/swipe/' + page.toString() + "/5"),
+        Uri.parse('http://h2973117.stratoserver.net:8080/swipe/' +
+            page.toString() +
+            "/5"),
         headers: <String, String>{
           'x-access-token': token!,
         });
@@ -41,7 +43,8 @@ class matchingPageState extends State<matchingPage> {
     String? token = await UserPreferences().getToken();
 
     final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/matches/like/' + id.toString()),
+        Uri.parse('http://h2973117.stratoserver.net:8080/matches/like/' +
+            id.toString()),
         headers: <String, String>{
           'x-access-token': token!,
         });
@@ -54,7 +57,8 @@ class matchingPageState extends State<matchingPage> {
     String? token = await UserPreferences().getToken();
 
     final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/matches/dislike/' + id.toString()),
+        Uri.parse('http://h2973117.stratoserver.net:8080/matches/dislike/' +
+            id.toString()),
         headers: <String, String>{
           'x-access-token': token!,
         });

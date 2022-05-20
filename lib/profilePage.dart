@@ -8,7 +8,7 @@ import 'models/profile.dart';
 
 Future<Profile> getProfile(int id) async {
   final response = await http.post(
-    Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
+    Uri.parse('http://h2973117.stratoserver.net:8080/profile/' + id.toString()),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
