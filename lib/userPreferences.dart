@@ -45,9 +45,9 @@ class UserPreferences {
     return token;
   }
 
-  Future<String?> getId() async {
+  Future<int> getId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString("id").toString();
+    int id = prefs.getString("id") as int;
     return id;
   }
 }
