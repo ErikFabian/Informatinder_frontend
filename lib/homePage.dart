@@ -22,7 +22,7 @@ class homePageState extends State<homePage> {
   Color editableButtonColor = Colors.transparent;
 
   Future<Profile> getProfile() async {
-    int id = await UserPreferences().getId();
+    String? id = await UserPreferences().getId();
 
     final response = await http.get(
       Uri.parse(
@@ -39,7 +39,7 @@ class homePageState extends State<homePage> {
   }
 
   void updateProfile(String name, String description, bool isBetrieb) async {
-    int id = await UserPreferences().getId();
+    String? id = await UserPreferences().getId();
     String? token = await UserPreferences().getToken();
 
     final response = await http.patch(
