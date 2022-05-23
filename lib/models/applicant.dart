@@ -1,35 +1,32 @@
-class Company {
+class Applicant {
   int id;
   String image;
   String name;
-  String location;
   String description;
   String website;
-  List<String> languages = [];
-  List<String> benefits = [];
+  Map<String, double> languages;
   List<String> categories = [];
+  int experience;
 
-  Company(
+  Applicant(
       {required this.id,
       required this.image,
       required this.name,
-      required this.location,
       required this.description,
       required this.website,
       required this.languages,
-      required this.benefits,
+      required this.experience,
       required this.categories});
 
-  factory Company.fromJson(Map<String, dynamic> json) {
-    return Company(
+  factory Applicant.fromJson(Map<String, dynamic> json) {
+    return Applicant(
       id: json['id'],
       image: json['image'],
       name: json['name'],
-      location: json['location'],
       description: json['description'],
       website: json['website'],
       languages: json['languages'],
-      benefits: json['benefits'],
+      experience: json['experience'],
       categories: json['categories'],
     );
   }
