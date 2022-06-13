@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/userPreferences.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -17,6 +18,8 @@ class homePageState extends State<homePage> {
 
   final TextEditingController _profileTextController = TextEditingController();
   final TextEditingController _profileNameController = TextEditingController();
+
+  ImagePicker picker = ImagePicker();
 
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
@@ -129,7 +132,9 @@ class homePageState extends State<homePage> {
                                       Icons.edit_outlined,
                                       color: Colors.black,
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      XFile? image = await picker.pickImage(
+                                          source: ImageSource.gallery);
                                       if (editable) {
                                         editableButtonColor =
                                             Colors.transparent;
