@@ -44,7 +44,7 @@ class matchesPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      profile.name,
+                      profile.name!,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 30),
                     ),
@@ -61,8 +61,8 @@ class matchesPage extends StatelessWidget {
                           builder: (BuildContext context) => profilePage(
                             key: key,
                             profileID: profile.id,
-                            profileName: profile.name,
-                            profileDescription: profile.description,
+                            profileName: profile.name!,
+                            profileDescription: profile.description!,
                             isBetrieb: profile.isBetrieb,
                           ),
                         ),

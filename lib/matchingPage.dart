@@ -136,7 +136,7 @@ class matchingPageState extends State<matchingPage> {
                                           padding:
                                               const EdgeInsets.only(bottom: 8),
                                           child: Text(
-                                            profile.name,
+                                            profile.name!,
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25),

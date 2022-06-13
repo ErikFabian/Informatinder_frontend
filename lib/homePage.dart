@@ -76,8 +76,8 @@ class homePageState extends State<homePage> {
             } else {
               Profile profile = snapshot.data!;
               if (!editable) {
-                _profileNameController.text = profile.name;
-                _profileTextController.text = profile.description;
+                _profileNameController.text = profile.name!;
+                _profileTextController.text = profile.description!;
               }
 
               return SingleChildScrollView(

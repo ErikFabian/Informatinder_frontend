@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/company.dart';
+import 'package:frontend_flutter/models/profile.dart';
 
 import 'models/applicant.dart';
 
@@ -69,13 +71,45 @@ class ProfileBuilder {
 
 */
 
+  static List<Widget> buildProfile(Profile profile) {
+    return profile.isBetrieb
+        ? buildCompanyProfile(profile)
+        : buildApplicantProfile(profile);
+  }
+
+  static List<Widget> buildApplicantProfile(Profile profile) {
+    return [
+      buildExperienceSection(profile.experience!),
+      buildHeadline("INTERESSEN"),
+      buildInterestSection(profile.categories!),
+      buildHeadline("SPRACHEN"),
+      buildLanguageSectionFromMap(profile.languagesApplicant!),
+      buildHeadline("ÜBER MICH"),
+      buildAboutMe(profile.name!, profile.website!, profile.description!)
+    ];
+  }
+
+  static List<Widget> buildCompanyProfile(Profile profile) {
+    return [
+      buildHeadline("ANGEBOTE"),
+      buildInterestSection(profile.categories!),
+      buildHeadline("SPRACHEN"),
+      buildLanguageSectionFromList(profile.languagesCompany!),
+      buildBenefitSection(profile.benefits!),
+      buildHeadline("ÜBER UNS"),
+      buildAboutUs(profile.name!, profile.website!, profile.location!,
+          profile.description!)
+    ];
+  }
+
 // WIDGET FUNCTIONS
 
-  static Widget buildInterestElement(String interest) {
+  static Widget buildInterestElement(String interest, bool editable) {
     return Container(
-        decoration: BoxDecoration(color: getInterestColor(interest)),
-        padding: const EdgeInsets.all(8.0),
-        child: Text(interest));
+      decoration: BoxDecoration(color: getInterestColor(interest)),
+      padding: const EdgeInsets.all(8.0),
+      child: Text(interest),
+    );
     ;
   }
 
@@ -89,15 +123,63 @@ class ProfileBuilder {
         child: Text(benefit));
   }
 
-  static Widget buildLanguageElementFromMap(
-      String language, double experience) {
+  static Border buildBorderFromExperience(int experience) {
+    switch (experience) {
+      case 1:
+        return const Border(
+          left:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          bottom:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+          right:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+        );
+      case 2:
+        return const Border(
+          left:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          right:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+          bottom:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+        );
+      case 3:
+        return const Border(
+          left:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          right:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          bottom:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
+        );
+      case 4:
+        return const Border(
+          left:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          right:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          bottom:
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+        );
+
+      default:
+        return const Border(
+          bottom: BorderSide.none,
+          right: BorderSide.none,
+          top: BorderSide.none,
+          left: BorderSide.none,
+        );
+    }
+  }
+
+  static Widget buildLanguageElementFromMap(String language, int experience) {
     return Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                color: ProfileBuilder.getLanguageColor(language)!,
-                width: experience),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            color: Colors.white),
+            border: buildBorderFromExperience(experience), color: Colors.white),
         padding: const EdgeInsets.all(8.0),
         child: Text(language));
   }
@@ -125,7 +207,6 @@ class ProfileBuilder {
             style: const TextStyle(
               fontWeight: FontWeight.w600,
             )),
-        const SizedBox(height: 15)
       ],
     );
   }
@@ -146,15 +227,24 @@ class ProfileBuilder {
   }
 
   static Widget buildBenefitSection(List<String> benefits) {
-    List<Widget> widgets = [];
-    for (var benefit in benefits) {
-      widgets.add(buildBenefitElement(benefit));
+    if (benefits.isEmpty) {
+      return const SizedBox(height: 10);
+    } else {
+      List<Widget> widgets = [];
+      for (var benefit in benefits) {
+        widgets.add(buildBenefitElement(benefit));
+      }
+      return Column(children: [
+        ProfileBuilder.buildHeadline("BENEFTIS"),
+        const SizedBox(
+          height: 15,
+        ),
+        Wrap(spacing: 10, children: widgets)
+      ], crossAxisAlignment: CrossAxisAlignment.start);
     }
-    return Wrap(spacing: 10, children: widgets);
-    ;
   }
 
-  static Widget buildLanguageSectionFromMap(Map<String, double> languages) {
+  static Widget buildLanguageSectionFromMap(Map<String, int> languages) {
     List<Widget> widgets = [];
     for (var language in languages.keys) {
       widgets.add(buildLanguageElementFromMap(language, languages[language]!));
@@ -175,7 +265,7 @@ class ProfileBuilder {
   static Widget buildInterestSection(List<String> interests) {
     List<Widget> widgets = [];
     for (var interest in interests) {
-      widgets.add(buildInterestElement(interest));
+      widgets.add(buildInterestElement(interest, false));
     }
     return Wrap(spacing: 10, children: widgets);
   }
