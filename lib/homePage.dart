@@ -29,11 +29,15 @@ class homePageState extends State<homePage> {
   Color editableButtonColor = Colors.transparent;
 
   uploadImage(File imageFile) async {
+    String? token = await UserPreferences().getToken();
+    Map<String, String> headers = {
+      'x-access-token': token!,
+    };
     var stream = http.ByteStream(DelegatingStream(imageFile.openRead()));
     var length = await imageFile.length();
     var uri = Uri.parse("http://h2973117.stratoserver.net:8080/image/");
     var request = http.MultipartRequest("POST", uri);
-
+    request.headers.addAll(headers);
     var multipartFile = http.MultipartFile('file', stream, length,
         filename: basename(imageFile.path));
 
