@@ -29,19 +29,19 @@ class Profile {
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       id: json['id'],
-      image: json['image'] ? json['image'] : "",
-      name: json['name'] ? json['name'] : "Unbekannt",
-      description: json['description'] ? json['description'] : "",
-      website: json['website'] ? json['website'] : "",
+      image: json['image'] != Null ? json['image'] : "",
+      name: json['name'] != Null ? json['name'] : "Unbekannt",
+      description: json['description'] != Null ? json['description'] : "",
+      website: json['website'] != Null ? json['website'] : "",
       languagesApplicant:
-          json['languagesApplicant'] ? json['languagesApplicant'] : [],
+          json['languagesApplicant'] != Null ? json['languagesApplicant'] : [],
       languagesCompany:
-          json['languagesCompany'] ? json['languagesCompany'] : [],
-      experience: json['experience'] ? json['experience'] : 0,
-      categories: json['categories'] ? json['categories'] : [],
-      benefits: json['benefits'] ? json['benefits'] : [],
-      location: json['location'] ? json['location'] : [],
-      isBetrieb: json['isBetrieb'] ? json['isBetrieb'] : [],
+          json['languagesCompany'] != Null ? json['languagesCompany'] : [],
+      experience: json['experience'] != Null ? json['experience'] : 0,
+      categories: json['categories'] != Null ? json['categories'] : [],
+      benefits: json['benefits'] != Null ? json['benefits'] : [],
+      location: json['location'] != Null ? json['location'] : [],
+      isBetrieb: json['isBetrieb'] != Null ? json['isBetrieb'] : [],
     );
   }
 }

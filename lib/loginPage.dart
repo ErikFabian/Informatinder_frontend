@@ -44,12 +44,6 @@ class loginPage extends StatelessWidget {
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: [
-              Image.asset(
-                'images/logo.png',
-                width: 500,
-                height: 100,
-                fit: BoxFit.cover,
-              ),
               Container(
                 padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
                 child: Row(

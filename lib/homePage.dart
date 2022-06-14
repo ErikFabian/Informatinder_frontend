@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/userPreferences.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -23,6 +27,24 @@ class homePageState extends State<homePage> {
 
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
+
+  uploadImage(File imageFile) async {
+    var stream = http.ByteStream(DelegatingStream(imageFile.openRead()));
+    var length = await imageFile.length();
+    var uri = Uri.parse("http://h2973117.stratoserver.net:8080/image/");
+    var request = http.MultipartRequest("POST", uri);
+
+    var multipartFile = http.MultipartFile('file', stream, length,
+        filename: basename(imageFile.path));
+
+    request.files.add(multipartFile);
+
+    var response = await request.send();
+
+    if (response.statusCode != 200) {
+      throw Exception("Image upload failed");
+    }
+  }
 
   Future<Profile> getProfile() async {
     String? id = await UserPreferences().getId();
@@ -80,17 +102,34 @@ class homePageState extends State<homePage> {
                 _profileTextController.text = profile.description!;
               }
 
+              profile.image = profile.image == Null ? profile.image : "";
+              // Also eig unnötig da in der profile.dart gecheckt werden sollte aber iwie brauchen wir das
+
+              String imageURL = profile.image == ""
+                  ? 'https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png'
+                  : profile.image!;
+
               return SingleChildScrollView(
                   child: Padding(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: Column(
                         children: [
-                          Image.asset(
-                            'images/teacher_female.png',
-                            width: 600,
-                            height: 300,
-                            fit: BoxFit.cover,
+                          InkWell(
+                            child: Image.network(
+                              imageURL,
+                              width: 600,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            ),
+                            onTap: () async {
+                              if (editable) {
+                                XFile? image = await picker.pickImage(
+                                    source: ImageSource.gallery);
+
+                                uploadImage(File(image!.path));
+                              }
+                            },
                           ),
                           Container(
                             padding: const EdgeInsets.only(
@@ -133,8 +172,6 @@ class homePageState extends State<homePage> {
                                       color: Colors.black,
                                     ),
                                     onPressed: () async {
-                                      XFile? image = await picker.pickImage(
-                                          source: ImageSource.gallery);
                                       if (editable) {
                                         editableButtonColor =
                                             Colors.transparent;
