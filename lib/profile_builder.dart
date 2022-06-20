@@ -2,72 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/profile.dart';
 
 class ProfileBuilder {
-/* BUILD APPLICANT PROFILE
-
-    BUILD A WIDGET LIST TO PASS TO A WIDGET AS CHILDREN
-
-        List<Widget> buildProfile(Applicant applicant) {
-            return [
-              ProfileBuilder.buildExperienceSection(applicant.experience),
-              ProfileBuilder.buildHeadline("INTERESSEN"),
-              ProfileBuilder.buildInterestSection(applicant.categories),
-              ProfileBuilder.buildHeadline("SPRACHEN"),
-              ProfileBuilder.buildLanguageSection(applicant.languages),
-              ProfileBuilder.buildHeadline("ÜBER MICH"),
-              ProfileBuilder.buildAboutMe(
-                  applicant.name, applicant.website, applicant.description)
-            ];
-          }
-
-    TESTING
-
-    final Applicant applicant = Applicant(
-      id: 0,
-      image: "/link/to/image",
-      name: "Max Mustermann",
-      description:
-          "Ich bin ein solider Informatiker. Nicht mehr, nicht weniger",
-      website: "www.website.com",
-      languages: {"Java": 1, "GO": 2, "Vue": 3, "Flutter": 4, "Node": 5},
-      experience: 4,
-      categories: ["Backend", "IOS", "Frontend"]);
-
-
-
-
-    BUILD COMPANY PROFILE 
-    BUILD A WIDGET LIST TO PASS TO A WIDGET AS CHILDREN
-
-        List<Widget> buildProfile(Company company) {
-          return [
-            ProfileBuilder.buildHeadline("ANGEBOTE"),
-            ProfileBuilder.buildInterestSection(company.categories),
-            ProfileBuilder.buildHeadline("SPRACHEN"),
-            ProfileBuilder.buildLanguageSectionFromList(company.languages),
-            ProfileBuilder.buildHeadline("BENEFITS"),
-            ProfileBuilder.buildBenefitSection(company.benefits),
-            ProfileBuilder.buildHeadline("ÜBER UNS"),
-            ProfileBuilder.buildAboutUs(
-                company.name, company.website, company.location, company.description)
-          ];
-  }
-
-    TESTING
-
-    final Company company = Company(
-      id: 0,
-      image: "/link/to/image",
-      name: "TESTFIRMA",
-      location: "Flensburg",
-      description:
-          "Ich bin ein solider Informatiker. Nicht mehr, nicht weniger",
-      website: "www.website.com",
-      languages: ["Node", "Angular", "Vue"],
-      categories: ["Backend", "Frontend"],
-      benefits: ["HOMEOFFICE", "KAFFEE", "FITNESS"]);
-
-*/
-
   static Widget builder(List<Widget?> ui) {
     return Container(
         padding: const EdgeInsets.all(0),
@@ -81,14 +15,12 @@ class ProfileBuilder {
               return ui[index] != null
                   ? Container(
                       padding: const EdgeInsets.all(15),
-                      // height: 70,
                       color: Colors.blue[50],
                       child: Center(child: ui[index]),
                     )
                   : const SizedBox.shrink();
             },
             separatorBuilder: (BuildContext context, int index) =>
-                // const Divider(),
                 const SizedBox(
                   height: 10,
                 )));
@@ -131,68 +63,7 @@ class ProfileBuilder {
     ];
   }
 
-  static Widget EditableBenefitElement(String benefit, deleteBenefit) {
-    return GestureDetector(
-        child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                color: Colors.white),
-            padding: const EdgeInsets.all(8.0),
-            child: Text(benefit)),
-        onTap: () => deleteBenefit(benefit));
-  }
-
-  static Border buildBorderFromExperience(int experience) {
-    switch (experience) {
-      case 1:
-        return const Border(
-          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          bottom:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-          right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-        );
-      case 2:
-        return const Border(
-          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-          bottom:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-        );
-      case 3:
-        return const Border(
-          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          bottom:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
-        );
-      case 4:
-        return const Border(
-          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-          bottom:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
-        );
-
-      default:
-        return const Border(
-          bottom: BorderSide.none,
-          right: BorderSide.none,
-          top: BorderSide.none,
-          left: BorderSide.none,
-        );
-    }
-  }
-
-  static Widget buildHeadline(String headline) {
+  static Widget Headline(String headline) {
     return Column(
       children: [
         const SizedBox(height: 15),
@@ -207,6 +78,80 @@ class ProfileBuilder {
     );
   }
 
+  static Widget EditableLanguageExperience(
+      double experience, changeExperience) {
+    return Slider(
+      value: experience,
+      min: 1,
+      max: 10,
+      divisions: 9,
+      label: ("Level: " + (experience).round().toString()),
+      onChanged: (double value) => changeExperience(value),
+    );
+  }
+
+  static Widget EditableText(String tag, String? editable, changeEditable) {
+    final controller = TextEditingController(text: editable!);
+    return Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: [
+          Text(tag),
+          TextField(
+            controller: controller,
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => changeEditable(controller.text),
+            )),
+          )
+        ]));
+  }
+
+  static Widget EditableItem(String field, editable, deleteEditable) {
+    return GestureDetector(
+        child: Container(
+            decoration: ItemDecoration(field, editable),
+            padding: const EdgeInsets.all(8.0),
+            child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable)),
+        onTap: () => field == "EXPERIENCE"
+            ? deleteEditable(editable.key)
+            : deleteEditable(editable));
+  }
+
+  static Widget EditableItems(
+      String field, List<String> editables, deleteEditable) {
+    if (editables.isEmpty) {
+      return const SizedBox(height: 10);
+    } else {
+      List<Widget> widgets = [];
+      for (var editable in editables) {
+        widgets.add(EditableItem(field, editable, deleteEditable));
+      }
+      return Column(
+          children: [Wrap(spacing: 10, children: widgets)],
+          crossAxisAlignment: CrossAxisAlignment.start);
+    }
+  }
+
+  static Widget EditableMapItems(
+      String field, Map<String, int> editables, deleteEditable) {
+    if (editables.isEmpty) {
+      return const SizedBox(height: 10);
+    } else {
+      List<Widget> widgets = [];
+      for (var editable in editables.entries) {
+        widgets.add(LanguageExperience(editable, deleteEditable));
+        // widgets.add(EditableElementWidget(field, editable, deleteEditable));
+      }
+      return Column(children: [
+        Wrap(spacing: 10, children: widgets),
+      ], crossAxisAlignment: CrossAxisAlignment.start);
+    }
+  }
+
   static Widget EditableSection(
       String field, List<String> editables, addEditable, deleteEditable) {
     final controller = TextEditingController();
@@ -214,7 +159,7 @@ class ProfileBuilder {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            buildHeadline(field),
+            Headline(field),
             const SizedBox(height: 30),
             EditableItems(field, editables, deleteEditable),
             const SizedBox(height: 30),
@@ -244,7 +189,7 @@ class ProfileBuilder {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            buildHeadline(field),
+            Headline(field),
             const SizedBox(height: 30),
             EditableMapItems(field, editables, deleteEditable),
             const SizedBox(height: 30),
@@ -261,49 +206,6 @@ class ProfileBuilder {
                 )))
           ],
         ));
-  }
-
-  static Widget EditableLanguageExperience(
-      double experience, changeExperience) {
-    return Slider(
-      value: experience,
-      min: 1,
-      max: 10,
-      divisions: 9,
-      label: ("Level: " + (experience).round().toString()),
-      onChanged: (double value) => changeExperience(value),
-    );
-  }
-
-  static Widget EditableItems(
-      String field, List<String> editables, deleteEditable) {
-    if (editables.isEmpty) {
-      return const SizedBox(height: 10);
-    } else {
-      List<Widget> widgets = [];
-      for (var editable in editables) {
-        widgets.add(EditableElementWidget(field, editable, deleteEditable));
-      }
-      return Column(
-          children: [Wrap(spacing: 10, children: widgets)],
-          crossAxisAlignment: CrossAxisAlignment.start);
-    }
-  }
-
-  static Widget EditableMapItems(
-      String field, Map<String, int> editables, deleteEditable) {
-    if (editables.isEmpty) {
-      return const SizedBox(height: 10);
-    } else {
-      List<Widget> widgets = [];
-      for (var editable in editables.entries) {
-        widgets.add(LanguageExperience(editable, deleteEditable));
-        // widgets.add(EditableElementWidget(field, editable, deleteEditable));
-      }
-      return Column(children: [
-        Wrap(spacing: 10, children: widgets),
-      ], crossAxisAlignment: CrossAxisAlignment.start);
-    }
   }
 
   static Widget LanguageExperience(language, deleteLanguage) {
@@ -328,6 +230,13 @@ class ProfileBuilder {
       ),
       onTap: () => deleteLanguage(language.key),
     );
+  }
+
+  static Widget Item(String field, editable) {
+    return Container(
+        decoration: ItemDecoration(field, editable),
+        padding: const EdgeInsets.all(8.0),
+        child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable));
   }
 
   static Widget? Items(String field, List<String>? items) {
@@ -358,39 +267,7 @@ class ProfileBuilder {
     }
   }
 
-  static Widget EditableExperience(int experience, changeExperience) {
-    return Row(
-      children: [
-        const Text("EXPERIENCE"),
-        Slider(
-          value: experience.toDouble(),
-          min: 0,
-          max: 50,
-          divisions: 51,
-          label: (experience.round().toString() + " Years"),
-          onChanged: (double value) => changeExperience(value),
-        )
-      ],
-    );
-  }
-
-  static Widget EditableElementWidget(String field, editable, deleteEditable) {
-    return GestureDetector(
-        child: Container(
-            decoration: ItemDecoration(field, editable),
-            padding: const EdgeInsets.all(8.0),
-            child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable)),
-        onTap: () => field == "EXPERIENCE"
-            ? deleteEditable(editable.key)
-            : deleteEditable(editable));
-  }
-
-  static Widget Item(String field, editable) {
-    return Container(
-        decoration: ItemDecoration(field, editable),
-        padding: const EdgeInsets.all(8.0),
-        child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable));
-  }
+// COLOR FUNCTIONS
 
   static BoxDecoration ItemDecoration(String field, editable) {
     switch (field.toUpperCase()) {
@@ -404,9 +281,7 @@ class ProfileBuilder {
       case "CATEGORIES":
         return BoxDecoration(color: getInterestColor(editable));
       case "EXPERIENCE":
-        return BoxDecoration(
-            border: buildBorderFromExperience(editable.value),
-            color: getLanguageColor(editable.key));
+        return BoxDecoration(color: getLanguageColor(editable.key));
       default:
         return BoxDecoration(
             border: Border.all(color: Colors.black),
@@ -414,44 +289,6 @@ class ProfileBuilder {
             color: Colors.white);
     }
   }
-
-  static Widget EditableLanguageElement(String language, deleteEditable) {
-    return GestureDetector(
-        child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: ProfileBuilder.getLanguageColor(language)!,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                color: getLanguageColor(language)),
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              language,
-              style: const TextStyle(color: Colors.white),
-            )));
-  }
-
-  static Widget EditableText(String tag, String? editable, changeEditable) {
-    final controller = TextEditingController(text: editable!);
-    return Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(children: [
-          Text(tag),
-          TextField(
-            controller: controller,
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: InputDecoration(
-                suffixIcon: IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => changeEditable(controller.text),
-            )),
-          )
-        ]));
-  }
-
-// COLOR FUNCTIONS
 
   static Color? getLanguageColor(String language) {
     Color? color;
