@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/models/company.dart';
 import 'package:frontend_flutter/models/profile.dart';
-
-import 'models/applicant.dart';
 
 class ProfileBuilder {
 /* BUILD APPLICANT PROFILE
@@ -71,64 +68,80 @@ class ProfileBuilder {
 
 */
 
-  static List<Widget> buildProfile(Profile profile) {
-    return profile.isBetrieb
-        ? buildCompanyProfile(profile)
-        : buildApplicantProfile(profile);
+  static Widget builder(List<Widget?> ui) {
+    return Container(
+        padding: const EdgeInsets.all(0),
+        child: ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(0),
+            itemCount: ui.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ui[index] != null
+                  ? Container(
+                      padding: const EdgeInsets.all(15),
+                      // height: 70,
+                      color: Colors.blue[50],
+                      child: Center(child: ui[index]),
+                    )
+                  : const SizedBox.shrink();
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                // const Divider(),
+                const SizedBox(
+                  height: 10,
+                )));
   }
 
-  static List<Widget> buildApplicantProfile(Profile profile) {
+  static Widget buildProfile(Profile profile) {
+    return builder(
+        profile.isBetrieb ? buildCompany(profile) : buildApplicant(profile));
+  }
+
+  static List<Widget?> buildCompany(Profile profile) {
     return [
-      buildExperienceSection(profile.experience!),
-      buildHeadline("INTERESSEN"),
-      buildInterestSection(profile.categories!),
-      buildHeadline("SPRACHEN"),
-      buildLanguageSectionFromMap(profile.languagesApplicant!),
-      buildHeadline("ÜBER MICH"),
-      buildAboutMe(profile.name!, profile.website!, profile.description!)
+      Text(profile.name ??= "No name yet"),
+      Text(profile.website ??= "No website yet"),
+      ProfileBuilder.Items("CATEGORIES", profile.categories!),
+      ProfileBuilder.Items("LANGUAGES", profile.languagesCompany!),
+      ProfileBuilder.Items("BENEFITS", profile.benefits!),
+      Text(profile.description ??= "No description yet"),
+      Text(profile.location ??= "No location yet"),
     ];
   }
 
-  static List<Widget> buildCompanyProfile(Profile profile) {
+  static List<Widget?> buildApplicant(Profile profile) {
     return [
-      buildHeadline("ANGEBOTE"),
-      buildInterestSection(profile.categories!),
-      buildHeadline("SPRACHEN"),
-      buildLanguageSectionFromList(profile.languagesCompany!),
-      buildBenefitSection(profile.benefits!),
-      buildHeadline("ÜBER UNS"),
-      buildAboutUs(profile.name!, profile.website!, profile.location!,
-          profile.description!)
+      ItemsFromMap("EXPERIENCE", profile.languagesApplicant),
+      Items("CATEGORIES", profile.categories),
+      profile.name == null || profile.name == "" ? null : Text(profile.name!),
+      profile.website == null || profile.website == ""
+          ? null
+          : Text(profile.website!),
+      profile.description == null || profile.description == ""
+          ? null
+          : Text(profile.description!)
     ];
   }
 
-// WIDGET FUNCTIONS
-
-  static Widget buildInterestElement(String interest, bool editable) {
-    return Container(
-      decoration: BoxDecoration(color: getInterestColor(interest)),
-      padding: const EdgeInsets.all(8.0),
-      child: Text(interest),
-    );
-    ;
-  }
-
-  static Widget buildBenefitElement(String benefit) {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            color: Colors.white),
-        padding: const EdgeInsets.all(8.0),
-        child: Text(benefit));
+  static Widget EditableBenefitElement(String benefit, deleteBenefit) {
+    return GestureDetector(
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                color: Colors.white),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(benefit)),
+        onTap: () => deleteBenefit(benefit));
   }
 
   static Border buildBorderFromExperience(int experience) {
     switch (experience) {
       case 1:
         return const Border(
-          left:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           bottom:
               BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
           right:
@@ -137,9 +150,8 @@ class ProfileBuilder {
         );
       case 2:
         return const Border(
-          left:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           right:
               BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
           bottom:
@@ -147,23 +159,21 @@ class ProfileBuilder {
         );
       case 3:
         return const Border(
-          left:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           bottom:
               BorderSide(width: 2.5, color: Color.fromARGB(255, 223, 14, 14)),
         );
       case 4:
         return const Border(
-          left:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
-          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+          left: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
+          top: BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           right:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
           bottom:
-              BorderSide(width: 2.5, color: Color.fromARGB(255, 19, 182, 101)),
+              BorderSide(width: 2.5, color: Color.fromARGB(255, 0, 243, 121)),
         );
 
       default:
@@ -176,195 +186,238 @@ class ProfileBuilder {
     }
   }
 
-  static Widget buildLanguageElementFromMap(String language, int experience) {
-    return Container(
-        decoration: BoxDecoration(
-            border: buildBorderFromExperience(experience), color: Colors.white),
-        padding: const EdgeInsets.all(8.0),
-        child: Text(language));
-  }
-
-  static Widget buildLanguageElementFromString(String language) {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: ProfileBuilder.getLanguageColor(language)!,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            color: getLanguageColor(language)),
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          language,
-          style: const TextStyle(color: Colors.white),
-        ));
-  }
-
   static Widget buildHeadline(String headline) {
     return Column(
       children: [
         const SizedBox(height: 15),
-        Text(headline.toUpperCase(),
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-            )),
+        Text(
+          headline.toUpperCase(),
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
 
-  static Widget buildExperienceSection(int experience) {
+  static Widget EditableSection(
+      String field, List<String> editables, addEditable, deleteEditable) {
+    final controller = TextEditingController();
     return Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            color: Colors.black),
         padding: const EdgeInsets.all(8.0),
-        child: Text("Seit " + experience.toString() + " Jahren Informatiker",
-            style: const TextStyle(
-              color: Colors.white,
-            )));
+        child: Column(
+          children: [
+            buildHeadline(field),
+            const SizedBox(height: 30),
+            EditableItems(field, editables, deleteEditable),
+            const SizedBox(height: 30),
+            TextField(
+                controller: controller,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => addEditable(controller.text.toUpperCase()),
+                )))
+          ],
+        ));
   }
 
-  static Widget buildBenefitSection(List<String> benefits) {
-    if (benefits.isEmpty) {
+  static Widget EditableMapSection(
+      String field,
+      Map<String, int> editables,
+      addEditable,
+      deleteEditable,
+      newExperience,
+      newLanguage,
+      changeExperience,
+      changeLanguage) {
+    final controller = TextEditingController();
+    return Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            buildHeadline(field),
+            const SizedBox(height: 30),
+            EditableMapItems(field, editables, deleteEditable),
+            const SizedBox(height: 30),
+            EditableLanguageExperience(newExperience, changeExperience),
+            const SizedBox(height: 30),
+            TextField(
+                controller: controller,
+                // onChanged: (value) => changeLanguage(value),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => addEditable(controller.text.toUpperCase()),
+                )))
+          ],
+        ));
+  }
+
+  static Widget EditableLanguageExperience(
+      double experience, changeExperience) {
+    return Slider(
+      value: experience,
+      min: 1,
+      max: 4,
+      divisions: 3,
+      label: ("Level: " + (experience).round().toString()),
+      onChanged: (double value) => changeExperience(value),
+    );
+  }
+
+  static Widget EditableItems(
+      String field, List<String> editables, deleteEditable) {
+    if (editables.isEmpty) {
       return const SizedBox(height: 10);
     } else {
       List<Widget> widgets = [];
-      for (var benefit in benefits) {
-        widgets.add(buildBenefitElement(benefit));
+      for (var editable in editables) {
+        widgets.add(EditableElementWidget(field, editable, deleteEditable));
       }
-      return Column(children: [
-        ProfileBuilder.buildHeadline("BENEFTIS"),
-        const SizedBox(
-          height: 15,
-        ),
-        Wrap(spacing: 10, children: widgets)
-      ], crossAxisAlignment: CrossAxisAlignment.start);
+      return Column(
+          children: [Wrap(spacing: 10, children: widgets)],
+          crossAxisAlignment: CrossAxisAlignment.start);
     }
   }
 
-  static Widget buildLanguageSectionFromMap(Map<String, int> languages) {
-    List<Widget> widgets = [];
-    for (var language in languages.keys) {
-      widgets.add(buildLanguageElementFromMap(language, languages[language]!));
+  static Widget EditableMapItems(
+      String field, Map<String, int> editables, deleteEditable) {
+    if (editables.isEmpty) {
+      return const SizedBox(height: 10);
+    } else {
+      List<Widget> widgets = [];
+      for (var editable in editables.entries) {
+        widgets.add(EditableElementWidget(field, editable, deleteEditable));
+      }
+      return Column(
+          children: [Wrap(spacing: 10, children: widgets)],
+          crossAxisAlignment: CrossAxisAlignment.start);
     }
-    return Wrap(spacing: 10, children: widgets);
-    ;
   }
 
-  static Widget buildLanguageSectionFromList(List<String> languages) {
-    List<Widget> widgets = [];
-    for (var language in languages) {
-      widgets.add(buildLanguageElementFromString(language));
+  static Widget? Items(String field, List<String>? items) {
+    if (items == null || items.isEmpty) {
+      return null;
+    } else {
+      List<Widget> widgets = [];
+      for (var item in items) {
+        widgets.add(Item(field, item));
+      }
+      return Column(
+          children: [Wrap(spacing: 10, children: widgets)],
+          crossAxisAlignment: CrossAxisAlignment.start);
     }
-    return Wrap(spacing: 10, children: widgets);
-    ;
   }
 
-  static Widget buildInterestSection(List<String> interests) {
-    List<Widget> widgets = [];
-    for (var interest in interests) {
-      widgets.add(buildInterestElement(interest, false));
+  static Widget? ItemsFromMap(String field, Map<String, int>? items) {
+    if (items == null || items.isEmpty) {
+      return null;
+    } else {
+      List<Widget> widgets = [];
+      for (var item in items.entries) {
+        widgets.add(Item(field, item));
+      }
+      return Column(
+          children: [Wrap(spacing: 10, children: widgets)],
+          crossAxisAlignment: CrossAxisAlignment.start);
     }
-    return Wrap(spacing: 10, children: widgets);
   }
 
-  static Widget buildAboutMe(String name, String website, String description) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  static Widget EditableExperience(int experience, changeExperience) {
+    return Row(
       children: [
-        const SizedBox(height: 5),
-        Wrap(
-          spacing: 45,
-          children: [
-            const Text(
-              "NAME",
-              style: TextStyle(fontWeight: FontWeight.w400),
-            ),
-            Text(
-              name,
-              style: const TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          spacing: 25,
-          children: [
-            const Text(
-              "WEBSITE",
-              style: TextStyle(fontWeight: FontWeight.w400),
-            ),
-            Text(
-              website,
-              style: const TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Text(
-          description,
-          style: const TextStyle(fontWeight: FontWeight.w300),
-        ),
+        const Text("EXPERIENCE"),
+        Slider(
+          value: experience.toDouble(),
+          min: 0,
+          max: 50,
+          divisions: 51,
+          label: (experience.round().toString() + " Years"),
+          onChanged: (double value) => changeExperience(value),
+        )
       ],
     );
   }
 
-  static Widget buildAboutUs(
-      String name, String website, String location, String description) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 5),
-        Wrap(
-          spacing: 45,
-          children: [
-            const Text(
-              "NAME",
-              style: TextStyle(fontWeight: FontWeight.w400),
+  static Widget EditableElementWidget(String field, editable, deleteEditable) {
+    return GestureDetector(
+        child: Container(
+            decoration: ItemDecoration(field, editable),
+            padding: const EdgeInsets.all(8.0),
+            child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable)),
+        onTap: () => field == "EXPERIENCE"
+            ? deleteEditable(editable.key)
+            : deleteEditable(editable));
+  }
+
+  static Widget Item(String field, editable) {
+    return Container(
+        decoration: ItemDecoration(field, editable),
+        padding: const EdgeInsets.all(8.0),
+        child: field == "EXPERIENCE" ? Text(editable.key) : Text(editable));
+  }
+
+  static BoxDecoration ItemDecoration(String field, editable) {
+    switch (field.toUpperCase()) {
+      case "LANGUAGES":
+        return BoxDecoration(
+            border: Border.all(
+              color: ProfileBuilder.getLanguageColor(editable)!,
             ),
-            Text(
-              name,
-              style: const TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          spacing: 25,
-          children: [
-            const Text(
-              "WEBSITE",
-              style: TextStyle(fontWeight: FontWeight.w400),
-            ),
-            Text(
-              website,
-              style: const TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          spacing: 55,
-          children: [
-            const Text(
-              "ORT",
-              style: TextStyle(fontWeight: FontWeight.w400),
-            ),
-            Text(
-              location,
-              style: const TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Text(
-          description,
-          style: const TextStyle(fontWeight: FontWeight.w300),
-        ),
-      ],
-    );
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            color: getLanguageColor(editable));
+      case "CATEGORIES":
+        return BoxDecoration(color: getInterestColor(editable));
+      case "EXPERIENCE":
+        return BoxDecoration(
+            border: buildBorderFromExperience(editable.value),
+            color: getLanguageColor(editable.key));
+      default:
+        return BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            color: Colors.white);
+    }
+  }
+
+  static Widget EditableLanguageElement(String language, deleteEditable) {
+    return GestureDetector(
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: ProfileBuilder.getLanguageColor(language)!,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                color: getLanguageColor(language)),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              language,
+              style: const TextStyle(color: Colors.white),
+            )));
+  }
+
+  static Widget EditableText(String tag, String? editable, changeEditable) {
+    final controller = TextEditingController(text: editable!);
+    return Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: [
+          Text(tag),
+          TextField(
+            controller: controller,
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => changeEditable(controller.text),
+            )),
+          )
+        ]));
   }
 
 // COLOR FUNCTIONS

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend_flutter/EditableProfile.dart';
 import 'package:frontend_flutter/models/profile.dart';
+import 'package:frontend_flutter/profile_builder.dart';
 import 'package:frontend_flutter/userPreferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -89,6 +91,19 @@ class homePageState extends State<homePage> {
     }
   }
 
+  _changeEditableState() {
+    setState(() {
+      editable = !editable;
+    });
+  }
+
+  _changeEditableStateAndUpdate() {
+    // updateProfile(name, description, isBetrieb)
+    setState(() {
+      editable = !editable;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Profile>(
@@ -138,72 +153,22 @@ class homePageState extends State<homePage> {
                           Container(
                             padding: const EdgeInsets.only(
                                 top: 32, left: 32, right: 32),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        controller: _profileNameController,
-                                        inputFormatters: [
-                                          LengthLimitingTextInputFormatter(50),
-                                        ],
-                                        enabled: editable,
-                                        maxLines: null,
-                                        decoration: const InputDecoration(
-                                            border: InputBorder.none),
-                                        style: const TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        'Betrieb/Bewerber',
-                                        style: TextStyle(
-                                          color: Colors.grey[500],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: editableButtonColor,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.edit_outlined,
-                                      color: Colors.black,
-                                    ),
-                                    onPressed: () async {
-                                      if (editable) {
-                                        editableButtonColor =
-                                            Colors.transparent;
-                                        updateProfile(
-                                            _profileNameController.text,
-                                            _profileTextController.text,
-                                            false);
-                                      } else {
-                                        editableButtonColor = Colors.blue;
-                                      }
-                                      setState(() {
-                                        editable = !editable;
-                                      });
-                                    },
-                                  ),
-                                )
-                              ],
+                            child: editable
+                                ? EditableProfile(data: profile)
+                                : ProfileBuilder.buildProfile(profile),
+                          ),
+                          OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                primary: Colors.white),
+                            onPressed: (() => editable
+                                ? _changeEditableStateAndUpdate()
+                                : _changeEditableState()),
+                            child: Text(
+                              editable ? "SAVE" : "EDIT",
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(32),
-                            child: TextFormField(
-                              controller: _profileTextController,
-                              enabled: editable,
-                              maxLines: null,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          )
                         ],
                       )));
             }

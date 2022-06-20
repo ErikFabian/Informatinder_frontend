@@ -34,7 +34,7 @@ class Profile {
       description: json['description'] != Null ? json['description'] : "",
       website: json['website'] != Null ? json['website'] : "",
       languagesApplicant:
-          json['languagesApplicant'] != Null ? json['languagesApplicant'] : [],
+          json['languagesApplicant'] != Null ? json['languagesApplicant'] : {},
       languagesCompany:
           json['languagesCompany'] != Null ? json['languagesCompany'] : [],
       experience: json['experience'] != Null ? json['experience'] : 0,
