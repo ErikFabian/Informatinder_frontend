@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/profile_builder.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/userPreferences.dart';
@@ -92,6 +93,7 @@ class matchingPageState extends State<matchingPage> {
         },
       ));
     }
+
     _matchEngine = MatchEngine(swipeItems: _swipeItems);
   }
 
@@ -125,43 +127,48 @@ class matchingPageState extends State<matchingPage> {
                             Container(
                               padding: const EdgeInsets.only(
                                   top: 32, left: 32, right: 32),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 8),
-                                          child: Text(
-                                            profile.name!,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Betrieb/Bewerber',
-                                          style: TextStyle(
-                                            color: Colors.grey[500],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.all(32),
-                                child: TextFormField(
-                                  enabled: false,
-                                  maxLines: null,
-                                  style: const TextStyle(fontSize: 14),
-                                  initialValue: profile.description,
-                                ))
+                              child: ProfileBuilder.buildProfile(profile),
+                            )
+                            // Container(
+                            //   padding: const EdgeInsets.only(
+                            //       top: 32, left: 32, right: 32),
+                            //   child: Row(
+                            //     children: [
+                            //       Expanded(
+                            //         child: Column(
+                            //           crossAxisAlignment:
+                            //               CrossAxisAlignment.start,
+                            //           children: [
+                            //             Container(
+                            //               padding:
+                            //                   const EdgeInsets.only(bottom: 8),
+                            //               child: Text(
+                            //                 profile.name!,
+                            //                 style: const TextStyle(
+                            //                     fontWeight: FontWeight.bold,
+                            //                     fontSize: 25),
+                            //               ),
+                            //             ),
+                            //             Text(
+                            //               'Betrieb/Bewerber',
+                            //               style: TextStyle(
+                            //                 color: Colors.grey[500],
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //     padding: const EdgeInsets.all(32),
+                            //     child: TextFormField(
+                            //       enabled: false,
+                            //       maxLines: null,
+                            //       style: const TextStyle(fontSize: 14),
+                            //       initialValue: profile.description,
+                            //     ))
                           ])));
                 },
                 onStackFinished: () {

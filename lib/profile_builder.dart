@@ -101,13 +101,19 @@ class ProfileBuilder {
 
   static List<Widget?> buildCompany(Profile profile) {
     return [
-      Text(profile.name ??= "No name yet"),
-      Text(profile.website ??= "No website yet"),
-      ProfileBuilder.Items("CATEGORIES", profile.categories!),
-      ProfileBuilder.Items("LANGUAGES", profile.languagesCompany!),
-      ProfileBuilder.Items("BENEFITS", profile.benefits!),
-      Text(profile.description ??= "No description yet"),
-      Text(profile.location ??= "No location yet"),
+      profile.name == null || profile.name == "" ? null : Text(profile.name!),
+      profile.website == null || profile.website == ""
+          ? null
+          : Text(profile.website!),
+      profile.location == null || profile.location == ""
+          ? null
+          : Text(profile.description!),
+      profile.description == null || profile.description == ""
+          ? null
+          : Text(profile.description!),
+      Items("CATEGORIES", profile.categories),
+      Items("LANGUAGES", profile.languagesCompany),
+      Items("BENEFITS", profile.benefits),
     ];
   }
 
