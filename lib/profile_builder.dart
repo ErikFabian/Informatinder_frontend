@@ -268,8 +268,8 @@ class ProfileBuilder {
     return Slider(
       value: experience,
       min: 1,
-      max: 4,
-      divisions: 3,
+      max: 10,
+      divisions: 9,
       label: ("Level: " + (experience).round().toString()),
       onChanged: (double value) => changeExperience(value),
     );
@@ -297,12 +297,37 @@ class ProfileBuilder {
     } else {
       List<Widget> widgets = [];
       for (var editable in editables.entries) {
-        widgets.add(EditableElementWidget(field, editable, deleteEditable));
+        widgets.add(LanguageExperience(editable, deleteEditable));
+        // widgets.add(EditableElementWidget(field, editable, deleteEditable));
       }
-      return Column(
-          children: [Wrap(spacing: 10, children: widgets)],
-          crossAxisAlignment: CrossAxisAlignment.start);
+      return Column(children: [
+        Wrap(spacing: 10, children: widgets),
+      ], crossAxisAlignment: CrossAxisAlignment.start);
     }
+  }
+
+  static Widget LanguageExperience(language, deleteLanguage) {
+    return GestureDetector(
+      child: Wrap(
+        direction: Axis.horizontal,
+        crossAxisAlignment: WrapCrossAlignment.end,
+        spacing: 5,
+        runSpacing: 5,
+        children: [
+          Text(language.key),
+          Expanded(
+              child: LinearProgressIndicator(
+            value: language.value.toDouble() * 0.1,
+            backgroundColor: Colors.blue[100],
+            color: Colors.blue[800],
+          )),
+          const SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+      onTap: () => deleteLanguage(language.key),
+    );
   }
 
   static Widget? Items(String field, List<String>? items) {

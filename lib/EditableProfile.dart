@@ -92,7 +92,8 @@ class _EditableProfileState extends State<EditableProfile> {
 
   void _deleteApplicantLanguage(language) {
     setState(() {
-      profile?.languagesApplicant?.remove(language);
+      profile?.languagesApplicant
+          ?.removeWhere(((key, value) => key == language));
     });
   }
 
