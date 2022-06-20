@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -17,7 +19,7 @@ class regPage extends State<registerPage> {
       TextEditingController();
 
   Future<bool> register(String email, String username, String password,
-      String confirmPassword) async {
+      String confirmPassword, bool isBetrieb) async {
     final response = await http.post(
       Uri.parse('http://h2973117.stratoserver.net:8080/user/auth/register'),
       headers: <String, String>{
@@ -27,7 +29,8 @@ class regPage extends State<registerPage> {
         'email': email,
         'username': username,
         'password': password,
-        'confirmPassword': confirmPassword
+        'confirmPassword': confirmPassword,
+        'isBetrieb': isBetrieb.toString()
       }),
     );
 
@@ -129,21 +132,6 @@ class regPage extends State<registerPage> {
                                   border: OutlineInputBorder()),
                             ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: const Text(
-                              'Geburtdatum',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 16),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder()),
-                            ),
-                          ),
                           CheckboxListTile(
                             title: const Text("Company"),
                             value: company,
@@ -167,7 +155,7 @@ class regPage extends State<registerPage> {
                                     _confirmPasswordController.text;
 
                                 register(email, username, password,
-                                        confirmPassword)
+                                        confirmPassword, company)
                                     .then((value) => {
                                           if (value)
                                             {
