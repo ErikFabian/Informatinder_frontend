@@ -121,12 +121,11 @@ class homePageState extends State<homePage> {
                 _profileTextController.text = profile.description!;
               }
 
-              profile.image = profile.image == Null ? profile.image : "";
-              // Also eig unnötig da in der profile.dart gecheckt werden sollte aber iwie brauchen wir das
+              debugPrint(profile.image);
 
               String imageURL = profile.image == ""
                   ? 'https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png'
-                  : profile.image!;
+                  : 'http://h2973117.stratoserver.net:8080' + profile.image!;
 
               return SingleChildScrollView(
                   child: Padding(
