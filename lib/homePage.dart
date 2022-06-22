@@ -40,7 +40,7 @@ class homePageState extends State<homePage> {
     var uri = Uri.parse("http://h2973117.stratoserver.net:8080/profile/image/");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
-    var multipartFile = http.MultipartFile('file', stream, length,
+    var multipartFile = http.MultipartFile('image', stream, length,
         filename: basename(imageFile.path));
 
     request.files.add(multipartFile);
