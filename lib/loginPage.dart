@@ -105,6 +105,8 @@ class loginPage extends StatelessWidget {
                               if (value)
                                 {
                                   Navigator.of(context)
+                                      .popUntil((route) => route.isFirst),
+                                  Navigator.of(context)
                                       .pushReplacementNamed('/')
                                 }
                               else
