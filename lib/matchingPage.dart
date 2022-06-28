@@ -110,6 +110,7 @@ class matchingPageState extends State<matchingPage> {
             } else {
               List<Profile> profiles = snapshot.data!;
               initSwipeState(context, profiles);
+
               return SwipeCards(
                 matchEngine: _matchEngine,
                 itemBuilder: (BuildContext context, int index) {
@@ -118,8 +119,9 @@ class matchingPageState extends State<matchingPage> {
                       child: Container(
                           decoration: const BoxDecoration(color: Colors.white),
                           child: Column(children: [
-                            Image.asset(
-                              'images/teacher_male.png',
+                            Image.network(
+                              'http://h2973117.stratoserver.net:8080' +
+                                  profiles[index].image!,
                               width: 600,
                               height: 300,
                               fit: BoxFit.cover,
@@ -129,46 +131,6 @@ class matchingPageState extends State<matchingPage> {
                                   top: 32, left: 32, right: 32),
                               child: ProfileBuilder.buildProfile(profile),
                             )
-                            // Container(
-                            //   padding: const EdgeInsets.only(
-                            //       top: 32, left: 32, right: 32),
-                            //   child: Row(
-                            //     children: [
-                            //       Expanded(
-                            //         child: Column(
-                            //           crossAxisAlignment:
-                            //               CrossAxisAlignment.start,
-                            //           children: [
-                            //             Container(
-                            //               padding:
-                            //                   const EdgeInsets.only(bottom: 8),
-                            //               child: Text(
-                            //                 profile.name!,
-                            //                 style: const TextStyle(
-                            //                     fontWeight: FontWeight.bold,
-                            //                     fontSize: 25),
-                            //               ),
-                            //             ),
-                            //             Text(
-                            //               'Betrieb/Bewerber',
-                            //               style: TextStyle(
-                            //                 color: Colors.grey[500],
-                            //               ),
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // Padding(
-                            //     padding: const EdgeInsets.all(32),
-                            //     child: TextFormField(
-                            //       enabled: false,
-                            //       maxLines: null,
-                            //       style: const TextStyle(fontSize: 14),
-                            //       initialValue: profile.description,
-                            //     ))
                           ])));
                 },
                 onStackFinished: () {
