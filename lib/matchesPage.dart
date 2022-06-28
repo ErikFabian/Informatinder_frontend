@@ -60,10 +60,7 @@ class matchesPage extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (BuildContext context) => profilePage(
                             key: key,
-                            profileID: profile.id,
-                            profileName: profile.name!,
-                            profileDescription: profile.description!,
-                            isBetrieb: profile.isBetrieb,
+                            profile: profile,
                           ),
                         ),
                       );

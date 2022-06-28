@@ -121,10 +121,6 @@ class homePageState extends State<homePage> {
                 _profileTextController.text = profile.description!;
               }
 
-              String imageURL = profile.image == ""
-                  ? 'https://cdn.pixabay.com/photo/2014/03/24/17/19/teacher-295387_960_720.png'
-                  : 'http://h2973117.stratoserver.net:8080' + profile.image!;
-
               return SingleChildScrollView(
                   child: Padding(
                       padding: EdgeInsets.only(
@@ -133,7 +129,8 @@ class homePageState extends State<homePage> {
                         children: [
                           InkWell(
                             child: Image.network(
-                              imageURL,
+                              'http://h2973117.stratoserver.net:8080' +
+                                  profile.image!,
                               width: 600,
                               height: 300,
                               fit: BoxFit.cover,
