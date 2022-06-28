@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/profile_builder.dart';
 import 'package:frontend_flutter/userPreferences.dart';
@@ -50,13 +51,13 @@ class _EditableProfileState extends State<EditableProfile> {
 
   void _addCompanyLanguage(language) {
     setState(() {
-      profile?.languagesCompany?.add(language);
+      profile?.languages?.add(language);
     });
   }
 
   void _deleteCompanyLanguage(language) {
     setState(() {
-      profile?.languagesCompany?.removeWhere((element) => element == language);
+      profile?.languages?.removeWhere((element) => element == language);
     });
   }
 
@@ -86,14 +87,14 @@ class _EditableProfileState extends State<EditableProfile> {
 
   void _addApplicantLanguage(language) {
     setState(() {
-      profile?.languagesApplicant?[language] = _newExperience.round();
+      profile?.languages
+          ?.add(Language(name: language, experience: _newExperience.round()));
     });
   }
 
   void _deleteApplicantLanguage(language) {
     setState(() {
-      profile?.languagesApplicant
-          ?.removeWhere(((key, value) => key == language));
+      profile?.languages?.removeWhere(((element) => element.name == language));
     });
   }
 
@@ -130,9 +131,9 @@ class _EditableProfileState extends State<EditableProfile> {
           "DESCRIPTION", profile.description, _changeDescription),
       ProfileBuilder.EditableSection(
           "BENEFITS", profile.benefits ??= [], _addBenefit, _deleteBenefit),
-      ProfileBuilder.EditableSection(
+      ProfileBuilder.EditableLanguageSection(
           "LANGUAGES",
-          profile.languagesCompany ??= [],
+          profile.languages ??= [],
           _addCompanyLanguage,
           _deleteCompanyLanguage),
       ProfileBuilder.EditableSection("CATEGORIES", profile.categories ??= [],
@@ -150,7 +151,7 @@ class _EditableProfileState extends State<EditableProfile> {
           "DESCRIPTION", profile.description, _changeDescription),
       ProfileBuilder.EditableMapSection(
           "EXPERIENCE",
-          (profile.languagesApplicant ??= {}),
+          (profile.languages ??= []),
           _addApplicantLanguage,
           _deleteApplicantLanguage,
           _newExperience,

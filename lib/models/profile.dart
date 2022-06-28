@@ -1,3 +1,5 @@
+import 'package:frontend_flutter/models/language.dart';
+
 class Profile {
   int id;
   String? image;
@@ -5,9 +7,8 @@ class Profile {
   String? description;
   String? website;
   String? location;
-  Map<String, int>? languagesApplicant;
+  List<Language>? languages = [];
   List<String>? categories = [];
-  List<String>? languagesCompany = [];
   List<String>? benefits = [];
   int? experience;
   bool isBetrieb;
@@ -18,9 +19,8 @@ class Profile {
       this.name,
       this.description,
       this.website,
-      this.languagesApplicant,
+      this.languages,
       this.experience,
-      this.languagesCompany,
       this.benefits,
       this.categories,
       this.location,
@@ -33,10 +33,7 @@ class Profile {
       name: json['name'] != Null ? json['name'] : "Unbekannt",
       description: json['description'] != Null ? json['description'] : "",
       website: json['website'] != Null ? json['website'] : "",
-      languagesApplicant:
-          json['languagesApplicant'] != Null ? json['languagesApplicant'] : {},
-      languagesCompany:
-          json['languagesCompany'] != Null ? json['languagesCompany'] : [],
+      languages: json['languages'] != Null ? json['languagesApplicant'] : {},
       experience: json['experience'] != Null ? json['experience'] : 0,
       categories: json['categories'] != Null ? json['categories'] : [],
       benefits: json['benefits'] != Null ? json['benefits'] : [],

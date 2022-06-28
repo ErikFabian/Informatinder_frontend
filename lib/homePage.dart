@@ -27,6 +27,7 @@ class homePageState extends State<homePage> {
 
   ImagePicker picker = ImagePicker();
 
+  Profile profile = Profile(id: 0, isBetrieb: false);
   bool editable = false;
   Color editableButtonColor = Colors.transparent;
 
@@ -62,14 +63,14 @@ class homePageState extends State<homePage> {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-
-      return Profile.fromJson(responseData['profile']);
+      profile = Profile.fromJson(responseData['profile']);
+      return profile;
     } else {
       throw Exception("No Profile found");
     }
   }
 
-  void updateProfile(String name, String description, bool isBetrieb) async {
+  Future<Profile> updateProfile(Profile profile) async {
     String? id = await UserPreferences().getId();
     String? token = await UserPreferences().getToken();
 
@@ -81,13 +82,25 @@ class homePageState extends State<homePage> {
           'x-access-token': token!,
         },
         body: jsonEncode(<String, String>{
-          'name': name,
-          'description': description,
-          'isBetrieb': isBetrieb.toString()
+          'image': profile.image ??= "",
+          'name': profile.name ??= "",
+          'website': profile.website ??= "",
+          'experience':
+              profile.experience == null ? "" : profile.experience.toString(),
+          'location': profile.location ??= "",
+          'benefits': profile.benefits.toString(),
+          'categories': profile.benefits.toString(),
+          'languages': profile.languages.toString(),
+          'description': profile.description ??= "",
+          'isBetrieb': profile.isBetrieb.toString()
         }));
 
     if (response.statusCode != 200) {
+      return profile;
+    } else if (response.statusCode == 404) {
       throw Exception("No Profile found");
+    } else {
+      throw Exception("SERVER ERROR");
     }
   }
 
@@ -98,7 +111,7 @@ class homePageState extends State<homePage> {
   }
 
   _changeEditableStateAndUpdate() {
-    // updateProfile(name, description, isBetrieb)
+    updateProfile(profile);
     setState(() {
       editable = !editable;
     });
@@ -115,7 +128,7 @@ class homePageState extends State<homePage> {
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
-              Profile profile = snapshot.data!;
+              profile = snapshot.data!;
               if (!editable) {
                 _profileNameController.text = profile.name!;
                 _profileTextController.text = profile.description!;

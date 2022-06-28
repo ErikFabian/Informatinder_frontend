@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
 
 class ProfileBuilder {
@@ -44,14 +45,22 @@ class ProfileBuilder {
           ? null
           : Text(profile.description!),
       Items("CATEGORIES", profile.categories),
-      Items("LANGUAGES", profile.languagesCompany),
+      Items("LANGUAGES", buildCompanyLanguage(profile.languages!)),
       Items("BENEFITS", profile.benefits),
     ];
   }
 
+  static List<String>? buildCompanyLanguage(List<Language>? list) {
+    List<String>? newList = [];
+    list?.forEach((element) {
+      newList.add(element.name!);
+    });
+    return newList;
+  }
+
   static List<Widget?> buildApplicant(Profile profile) {
     return [
-      ItemsFromMap("EXPERIENCE", profile.languagesApplicant),
+      ItemsFromMap("EXPERIENCE", profile.languages),
       Items("CATEGORIES", profile.categories),
       profile.name == null || profile.name == "" ? null : Text(profile.name!),
       profile.website == null || profile.website == ""
@@ -61,6 +70,14 @@ class ProfileBuilder {
           ? null
           : Text(profile.description!)
     ];
+  }
+
+  static List<String>? buildApplicantLanguage(List<Language>? list) {
+    List<String>? newList = [];
+    list?.forEach((element) {
+      newList.add(element.name!);
+    });
+    return newList;
   }
 
   static Widget Headline(String headline) {
@@ -137,19 +154,44 @@ class ProfileBuilder {
   }
 
   static Widget EditableMapItems(
-      String field, Map<String, int> editables, deleteEditable) {
+      String field, List<Language> editables, deleteEditable) {
     if (editables.isEmpty) {
       return const SizedBox(height: 10);
     } else {
       List<Widget> widgets = [];
-      for (var editable in editables.entries) {
-        widgets.add(LanguageExperience(editable, deleteEditable));
-        // widgets.add(EditableElementWidget(field, editable, deleteEditable));
-      }
+
+      editables.forEach((element) {
+        widgets.add(LanguageExperience(editables, deleteEditable));
+      });
+
       return Column(children: [
         Wrap(spacing: 10, children: widgets),
       ], crossAxisAlignment: CrossAxisAlignment.start);
     }
+  }
+
+  static Widget EditableLanguageSection(
+      String field, List<Language> editables, addEditable, deleteEditable) {
+    final controller = TextEditingController();
+    return Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Headline(field),
+            const SizedBox(height: 30),
+            EditableItems(
+                field, buildCompanyLanguage(editables)!, deleteEditable),
+            const SizedBox(height: 30),
+            TextField(
+                controller: controller,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => addEditable(controller.text.toUpperCase()),
+                )))
+          ],
+        ));
   }
 
   static Widget EditableSection(
@@ -177,7 +219,7 @@ class ProfileBuilder {
 
   static Widget EditableMapSection(
       String field,
-      Map<String, int> editables,
+      List<Language> editables,
       addEditable,
       deleteEditable,
       newExperience,
@@ -232,6 +274,27 @@ class ProfileBuilder {
     );
   }
 
+  static Widget LanguageItem(Language language) {
+    return Wrap(
+      direction: Axis.horizontal,
+      crossAxisAlignment: WrapCrossAlignment.end,
+      spacing: 5,
+      runSpacing: 5,
+      children: [
+        Text(language.name!),
+        Expanded(
+            child: LinearProgressIndicator(
+          value: language.experience!.toDouble() * 0.1,
+          backgroundColor: Colors.blue[100],
+          color: Colors.blue[800],
+        )),
+        const SizedBox(
+          height: 20,
+        )
+      ],
+    );
+  }
+
   static Widget Item(String field, editable) {
     return Container(
         decoration: ItemDecoration(field, editable),
@@ -253,14 +316,16 @@ class ProfileBuilder {
     }
   }
 
-  static Widget? ItemsFromMap(String field, Map<String, int>? items) {
-    if (items == null || items.isEmpty) {
+  static Widget? ItemsFromMap(String field, List<Language>? languages) {
+    if (languages == null || languages.isEmpty) {
       return null;
     } else {
       List<Widget> widgets = [];
-      for (var item in items.entries) {
-        widgets.add(Item(field, item));
-      }
+
+      languages.forEach((element) {
+        widgets.add(LanguageItem(element));
+      });
+
       return Column(
           children: [Wrap(spacing: 10, children: widgets)],
           crossAxisAlignment: CrossAxisAlignment.start);
