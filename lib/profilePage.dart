@@ -7,23 +7,6 @@ import 'dart:convert';
 
 import 'models/profile.dart';
 
-Future<Profile> getProfile(int id) async {
-  final response = await http.post(
-    Uri.parse('http://h2973117.stratoserver.net:8080/profile/' + id.toString()),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    Map<String, dynamic> responseData = json.decode(response.body);
-    Profile profile = Profile.fromJson(responseData);
-    return profile;
-  } else {
-    throw Exception("No Profile found");
-  }
-}
-
 class profilePage extends StatelessWidget {
   final Profile profile;
 
