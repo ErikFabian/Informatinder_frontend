@@ -44,6 +44,9 @@ class ProfileBuilder {
       profile.description == null || profile.description == ""
           ? null
           : Text(profile.description!),
+      profile.contact == null || profile.contact == ""
+          ? null
+          : Text(profile.contact!),
       Items("CATEGORIES", profile.categories),
       Items("LANGUAGES", buildCompanyLanguage(profile.languages!)),
       Items("BENEFITS", profile.benefits),
@@ -60,8 +63,6 @@ class ProfileBuilder {
 
   static List<Widget?> buildApplicant(Profile profile) {
     return [
-      ItemsFromMap("EXPERIENCE", profile.languages),
-      Items("CATEGORIES", profile.categories),
       profile.name == null || profile.name == "" ? null : Text(profile.name!),
       profile.website == null || profile.website == ""
           ? null
@@ -71,7 +72,12 @@ class ProfileBuilder {
           : Text(profile.location!),
       profile.description == null || profile.description == ""
           ? null
-          : Text(profile.description!)
+          : Text(profile.description!),
+      profile.contact == null || profile.contact == ""
+          ? null
+          : Text(profile.contact!),
+      ItemsFromMap("EXPERIENCE", profile.languages),
+      Items("CATEGORIES", profile.categories),
     ];
   }
 

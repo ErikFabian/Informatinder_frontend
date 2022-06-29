@@ -21,10 +21,10 @@ class Profile {
       this.description,
       this.website,
       this.languages,
-      this.experience,
       this.benefits,
       this.categories,
       this.location,
+      this.contact,
       required this.isBetrieb});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
@@ -34,8 +34,8 @@ class Profile {
       name: json['name'] != Null ? json['name'] : "Unbekannt",
       description: json['description'] != Null ? json['description'] : "",
       website: json['website'] != Null ? json['website'] : "",
+      contact: json['contact'] != Null ? json['contact'] : "",
       languages: json['languages'] != Null ? json['languagesApplicant'] : {},
-      experience: json['experience'] != Null ? json['experience'] : 0,
       categories: json['categories'] != Null ? json['categories'] : [],
       benefits: json['benefits'] != Null ? json['benefits'] : [],
       location: json['location'] != Null ? json['location'] : [],

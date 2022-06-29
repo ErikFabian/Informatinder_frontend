@@ -76,7 +76,12 @@ class matchingPageState extends State<matchingPage> {
             id: inputProfiles[i].id,
             name: inputProfiles[i].name,
             description: inputProfiles[i].description,
-            isBetrieb: inputProfiles[i].isBetrieb),
+            isBetrieb: inputProfiles[i].isBetrieb,
+            location: inputProfiles[i].location,
+            website: inputProfiles[i].website,
+            benefits: inputProfiles[i].benefits,
+            categories: inputProfiles[i].categories,
+            languages: inputProfiles[i].languages),
         likeAction: () {
           sendLike(inputProfiles[i].id);
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

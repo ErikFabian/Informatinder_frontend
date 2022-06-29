@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_flutter/EditableProfile.dart';
+import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/profile_builder.dart';
 import 'package:frontend_flutter/userPreferences.dart';
@@ -70,6 +71,36 @@ class homePageState extends State<homePage> {
     }
   }
 
+  String languagesToString(List<Language> list) {
+    String returnValue = "{";
+
+    for (int i = 0; i < list.length - 1; i++) {
+      returnValue +=
+          "\"" + list[i].name! + "\":" + list[i].experience!.toString() + ",";
+    }
+    if (list.isNotEmpty) {
+      returnValue += "\"" +
+          list[list.length - 1].name! +
+          "\":" +
+          list[list.length - 1].experience!.toString();
+    }
+
+    return returnValue + "}";
+  }
+
+  String categoriesAndBenefitsToString(List<String> list) {
+    String returnValue = "[";
+
+    for (int i = 0; i < list.length - 1; i++) {
+      returnValue += "\"" + list[i] + "\"" + ",";
+    }
+    if (list.isNotEmpty) {
+      returnValue += "\"" + list[list.length - 1] + "\"";
+    }
+
+    return returnValue + "]";
+  }
+
   Future<Profile> updateProfile(Profile profile) async {
     String? id = await UserPreferences().getId();
     String? token = await UserPreferences().getToken();
@@ -86,22 +117,21 @@ class homePageState extends State<homePage> {
           'name': profile.name ??= "",
           'website': profile.website ??= "",
           'contact': profile.contact ??= "",
-          'experience':
-              profile.experience == null ? "" : profile.experience.toString(),
           'location': profile.location ??= "",
-          'benefits': profile.benefits.toString(),
-          'categories': profile.benefits.toString(),
-          'languages': profile.languages.toString(),
           'description': profile.description ??= "",
+          'benefits': categoriesAndBenefitsToString(profile.benefits ??= []),
+          'categories':
+              categoriesAndBenefitsToString(profile.categories ??= []),
+          'languages': languagesToString(profile.languages ??= []),
           'isBetrieb': profile.isBetrieb.toString()
         }));
 
-    if (response.statusCode != 200) {
+    if (response.statusCode == 200) {
       return profile;
     } else if (response.statusCode == 404) {
       throw Exception("No Profile found");
     } else {
-      throw Exception("SERVER ERROR");
+      throw Exception(response.statusCode);
     }
   }
 
