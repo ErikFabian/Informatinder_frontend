@@ -47,9 +47,9 @@ class ProfileBuilder {
       profile.contact == null || profile.contact == ""
           ? null
           : Text(profile.contact!),
-      Items("CATEGORIES", profile.categories),
+      Items("CATEGORIES", (profile.categories ??= [])),
       Items("LANGUAGES", buildCompanyLanguage(profile.languages!)),
-      Items("BENEFITS", profile.benefits),
+      Items("BENEFITS", (profile.benefits ??= [])),
     ];
   }
 
@@ -76,8 +76,8 @@ class ProfileBuilder {
       profile.contact == null || profile.contact == ""
           ? null
           : Text(profile.contact!),
-      ItemsFromMap("EXPERIENCE", profile.languages),
-      Items("CATEGORIES", profile.categories),
+      ItemsFromMap("LANGUAGES", profile.languages),
+      Items("CATEGORIES", (profile.categories ??= [])),
     ];
   }
 
@@ -279,7 +279,7 @@ class ProfileBuilder {
           )
         ],
       ),
-      onTap: () => deleteLanguage(language.key),
+      onTap: () => deleteLanguage(language.name),
     );
   }
 

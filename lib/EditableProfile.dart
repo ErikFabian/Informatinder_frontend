@@ -137,13 +137,13 @@ class _EditableProfileState extends State<EditableProfile> {
           "DESCRIPTION", profile.description, _changeDescription),
       ProfileBuilder.EditableText("CONTACT", profile.contact, _changeContact),
       ProfileBuilder.EditableSection(
-          "BENEFITS", profile.benefits ??= [], _addBenefit, _deleteBenefit),
+          "BENEFITS", (profile.benefits ??= []), _addBenefit, _deleteBenefit),
       ProfileBuilder.EditableLanguageSection(
           "LANGUAGES",
           profile.languages ??= [],
           _addCompanyLanguage,
           _deleteCompanyLanguage),
-      ProfileBuilder.EditableSection("CATEGORIES", profile.categories ??= [],
+      ProfileBuilder.EditableSection("CATEGORIES", (profile.categories ??= []),
           _addCategory, _deleteCategory),
     ];
   }

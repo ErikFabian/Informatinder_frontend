@@ -11,7 +11,6 @@ class Profile {
   List<Language>? languages = [];
   List<String>? categories = [];
   List<String>? benefits = [];
-  int? experience;
   bool isBetrieb;
 
   Profile(

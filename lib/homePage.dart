@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:frontend_flutter/EditableProfile.dart';
 import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
@@ -65,6 +64,19 @@ class homePageState extends State<homePage> {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       profile = Profile.fromJson(responseData['profile']);
+
+      List iterLanguages = responseData['languages'];
+      profile.languages = List<Language>.from(
+          iterLanguages.map((element) => Language.fromJson(element)));
+
+      List iterBenefits = responseData['benefits'];
+      profile.benefits =
+          List<String>.from(iterBenefits.map((element) => element.toString()));
+
+      List iterCategories = responseData['categories'];
+      profile.categories = List<String>.from(
+          iterCategories.map((element) => element.toString()));
+
       return profile;
     } else {
       throw Exception("No Profile found");

@@ -8,4 +8,12 @@ class Language {
   }
 
   Language({this.id, this.name, this.experience});
+
+  factory Language.fromJson(Map<String, dynamic> json) {
+    return Language(
+      id: json['id'],
+      name: json['name'] != Null ? json['name'] : "Unbekannt",
+      experience: json['experience'] != Null ? json['experience'] : "",
+    );
+  }
 }
