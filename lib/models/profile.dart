@@ -7,6 +7,7 @@ class Profile {
   String? description;
   String? website;
   String? location;
+  String? contact;
   List<Language>? languages = [];
   List<String>? categories = [];
   List<String>? benefits = [];

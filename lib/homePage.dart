@@ -85,6 +85,7 @@ class homePageState extends State<homePage> {
           'image': profile.image ??= "",
           'name': profile.name ??= "",
           'website': profile.website ??= "",
+          'contact': profile.contact ??= "",
           'experience':
               profile.experience == null ? "" : profile.experience.toString(),
           'location': profile.location ??= "",

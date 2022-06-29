@@ -40,7 +40,7 @@ class ProfileBuilder {
           : Text(profile.website!),
       profile.location == null || profile.location == ""
           ? null
-          : Text(profile.description!),
+          : Text(profile.location!),
       profile.description == null || profile.description == ""
           ? null
           : Text(profile.description!),
@@ -66,6 +66,9 @@ class ProfileBuilder {
       profile.website == null || profile.website == ""
           ? null
           : Text(profile.website!),
+      profile.location == null || profile.location == ""
+          ? null
+          : Text(profile.location!),
       profile.description == null || profile.description == ""
           ? null
           : Text(profile.description!)
@@ -108,7 +111,7 @@ class ProfileBuilder {
   }
 
   static Widget EditableText(String tag, String? editable, changeEditable) {
-    final controller = TextEditingController(text: editable!);
+    final controller = TextEditingController(text: editable ??= "");
     return Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(children: [
@@ -381,7 +384,7 @@ class ProfileBuilder {
         color = Colors.lightBlue[400];
         break;
       default:
-        color = Colors.black;
+        color = Colors.white;
         break;
     }
     return color;
@@ -413,7 +416,7 @@ class ProfileBuilder {
         color = Colors.lightBlue[400];
         break;
       default:
-        color = Colors.black;
+        color = Colors.white;
         break;
     }
     return color;

@@ -85,6 +85,12 @@ class _EditableProfileState extends State<EditableProfile> {
     });
   }
 
+  void _changeContact(contact) {
+    setState(() {
+      profile?.contact = contact;
+    });
+  }
+
   void _addApplicantLanguage(language) {
     setState(() {
       profile?.languages
@@ -129,6 +135,7 @@ class _EditableProfileState extends State<EditableProfile> {
           "LOCATION", profile.location, _changeLocation),
       ProfileBuilder.EditableText(
           "DESCRIPTION", profile.description, _changeDescription),
+      ProfileBuilder.EditableText("CONTACT", profile.contact, _changeContact),
       ProfileBuilder.EditableSection(
           "BENEFITS", profile.benefits ??= [], _addBenefit, _deleteBenefit),
       ProfileBuilder.EditableLanguageSection(
@@ -149,6 +156,7 @@ class _EditableProfileState extends State<EditableProfile> {
           "LOCATION", profile.location, _changeLocation),
       ProfileBuilder.EditableText(
           "DESCRIPTION", profile.description, _changeDescription),
+      ProfileBuilder.EditableText("CONTACT", profile.contact, _changeContact),
       ProfileBuilder.EditableMapSection(
           "EXPERIENCE",
           (profile.languages ??= []),
@@ -161,38 +169,6 @@ class _EditableProfileState extends State<EditableProfile> {
       ProfileBuilder.EditableSection("CATEGORIES", (profile.categories ??= []),
           _addCategory, _deleteCategory),
     ];
-  }
-
-  void updateProfile(Profile profile) async {
-    String? id = await UserPreferences().getId();
-    String? token = await UserPreferences().getToken();
-
-    // final response = await http.patch(
-    //     Uri.parse('http://10.0.2.2:8080/profile/' + id.toString()),
-    //     headers: <String, String>{
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //       'x-access-token': token!,
-    //     },
-    //     body: jsonEncode(<String, String>{
-    //       'name': profile.name!,
-    //       'description': profile.description!,
-    //       'image': profile.image!,
-    //       'description': profile.description!,
-    //       'website': profile.website!,
-    //       'languagesApplicant': profile.languagesApplicant!,
-    //       languagesCompany:
-    //           json['languagesCompany'] ? json['languagesCompany'] : [],
-    //       'experience': profile.experience!.tpf,
-    //       categories: json['categories'] ? json['categories'] : [],
-    //       benefits: json['benefits'] ? json['benefits'] : [],
-    //       location: json['location'] ? json['location'] : [],
-    //     }));
-
-    // if (response.statusCode != 200) {
-    //   throw Exception("No Profile found");
-    // } else {
-    //   Navigator.pop(context);
-    // }
   }
 
   Widget builder() {
