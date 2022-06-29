@@ -282,7 +282,7 @@ class ProfileBuilder {
       runSpacing: 5,
       children: [
         Text(language.name!),
-        Expanded(
+        Container(
             child: LinearProgressIndicator(
           value: language.experience!.toDouble() * 0.1,
           backgroundColor: Colors.blue[100],
