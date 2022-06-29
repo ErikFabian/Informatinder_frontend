@@ -161,7 +161,7 @@ class ProfileBuilder {
       List<Widget> widgets = [];
 
       editables.forEach((element) {
-        widgets.add(LanguageExperience(editables, deleteEditable));
+        widgets.add(LanguageExperience(element, deleteEditable));
       });
 
       return Column(children: [
@@ -258,10 +258,10 @@ class ProfileBuilder {
         spacing: 5,
         runSpacing: 5,
         children: [
-          Text(language.key),
-          Expanded(
+          Text(language.name),
+          Container(
               child: LinearProgressIndicator(
-            value: language.value.toDouble() * 0.1,
+            value: language.experience.toDouble() * 0.1,
             backgroundColor: Colors.blue[100],
             color: Colors.blue[800],
           )),
