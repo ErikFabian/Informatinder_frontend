@@ -51,7 +51,10 @@ class _EditableProfileState extends State<EditableProfile> {
 
   void _addCompanyLanguage(language) {
     setState(() {
-      profile?.languages?.add(language);
+      Language tempLang = Language();
+      tempLang.experience = 0;
+      tempLang.name = language;
+      profile?.languages?.add(tempLang);
     });
   }
 
