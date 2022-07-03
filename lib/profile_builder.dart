@@ -48,7 +48,7 @@ class ProfileBuilder {
           ? null
           : Text(profile.contact!),
       Items("CATEGORIES", (profile.categories ??= [])),
-      Items("LANGUAGES", buildCompanyLanguage(profile.languages!)),
+      Items("LANGUAGES", buildCompanyLanguage(profile.languages ??= [])),
       Items("BENEFITS", (profile.benefits ??= [])),
     ];
   }

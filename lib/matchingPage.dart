@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/profile_builder.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:frontend_flutter/models/profile.dart';
@@ -32,8 +33,26 @@ class matchingPageState extends State<matchingPage> {
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = json.decode(response.body);
       List iterProfiles = responseData['profiles'];
-      List<Profile> profiles = List<Profile>.from(
-          iterProfiles.map((model) => Profile.fromJson(model)));
+      List<Profile> profiles = [];
+
+      for (int i = 0; i < iterProfiles.length; i++) {
+        Profile tempProfile = Profile.fromJson(iterProfiles[i]['profile']);
+
+        List iterLanguages = iterProfiles[i]['languages'];
+        tempProfile.languages = List<Language>.from(
+            iterLanguages.map((element) => Language.fromJson(element)));
+
+        List iterBenefits = iterProfiles[i]['benefits'];
+        tempProfile.benefits = List<String>.from(
+            iterBenefits.map((element) => element.toString()));
+
+        List iterCategories = iterProfiles[i]['categories'];
+        tempProfile.categories = List<String>.from(
+            iterCategories.map((element) => element.toString()));
+
+        profiles.add(tempProfile);
+      }
+
       return profiles;
     } else {
       throw Exception("No Profiles found");
