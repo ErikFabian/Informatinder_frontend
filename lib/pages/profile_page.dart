@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/views/profile_builder.dart';
 import 'package:frontend_flutter/models/profile.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
-
-class profilePage extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   final Profile profile;
 
-  const profilePage({
+  const ProfilePage({
     Key? key,
     required this.profile,
   }) : super(key: key);

@@ -1,15 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
+import 'package:frontend_flutter/controller/network_controller.dart';
 
-class registerPage extends StatefulWidget {
-  regPage createState() => regPage();
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class regPage extends State<registerPage> {
+class RegisterPageState extends State<RegisterPage> {
   bool company = false;
 
   final TextEditingController _emailController = TextEditingController();
@@ -17,35 +16,6 @@ class regPage extends State<registerPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-
-  Future<bool> register(String email, String username, String password,
-      String confirmPassword, bool isBetrieb) async {
-    final response = await http.post(
-      Uri.parse('http://h2973117.stratoserver.net:8080/user/auth/register'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'username': username,
-        'password': password,
-        'confirmPassword': confirmPassword,
-        'isBetrieb': isBetrieb.toString()
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      // UserPreferences().saveUser();
-
-      return true;
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to register.');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +112,7 @@ class regPage extends State<registerPage> {
                             },
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
-                          Container(
-                              child: Padding(
+                          Padding(
                             padding: const EdgeInsets.only(
                                 top: 32, left: 32, right: 32),
                             child: ElevatedButton(
@@ -153,9 +122,8 @@ class regPage extends State<registerPage> {
                                 String password = _passwordController.text;
                                 String confirmPassword =
                                     _confirmPasswordController.text;
-
-                                register(email, username, password,
-                                        confirmPassword, company)
+                                NetworkController.register(email, username,
+                                        password, confirmPassword, company)
                                     .then((value) => {
                                           if (value)
                                             {
@@ -169,7 +137,7 @@ class regPage extends State<registerPage> {
                               },
                               child: const Text('Register'),
                             ),
-                          ))
+                          )
                         ],
                       ),
                     ),

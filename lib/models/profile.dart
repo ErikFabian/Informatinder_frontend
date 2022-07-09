@@ -41,4 +41,36 @@ class Profile {
       isBetrieb: json['isBetrieb'] != Null ? json['isBetrieb'] : [],
     );
   }
+
+  // LIST OF BENEFITS OR CATEGORIES TO STRING
+  static String listToString(List<String> list) {
+    String returnValue = "[";
+
+    for (int i = 0; i < list.length - 1; i++) {
+      returnValue += "\"" + list[i] + "\"" + ",";
+    }
+    if (list.isNotEmpty) {
+      returnValue += "\"" + list[list.length - 1] + "\"";
+    }
+
+    return returnValue + "]";
+  }
+
+  // LIST OF LANGUAGES TO STRING
+  static String languagesToString(List<Language> list) {
+    String returnValue = "{";
+
+    for (int i = 0; i < list.length - 1; i++) {
+      returnValue +=
+          "\"" + list[i].name! + "\":" + list[i].experience!.toString() + ",";
+    }
+    if (list.isNotEmpty) {
+      returnValue += "\"" +
+          list[list.length - 1].name! +
+          "\":" +
+          list[list.length - 1].experience!.toString();
+    }
+
+    return returnValue + "}";
+  }
 }

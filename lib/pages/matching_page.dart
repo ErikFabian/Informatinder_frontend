@@ -3,17 +3,19 @@ import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/views/profile_builder.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:frontend_flutter/models/profile.dart';
-import 'package:frontend_flutter/controller/userPreferences.dart';
+import 'package:frontend_flutter/controller/user_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class matchingPage extends StatefulWidget {
-  const matchingPage({Key? key}) : super(key: key);
-  matchingPageState createState() => matchingPageState();
+class MatchingPage extends StatefulWidget {
+  const MatchingPage({Key? key}) : super(key: key);
+
+  @override
+  MatchingPageState createState() => MatchingPageState();
 }
 
-class matchingPageState extends State<matchingPage> {
+class MatchingPageState extends State<MatchingPage> {
   late MatchEngine _matchEngine;
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   int thisPage = 1;

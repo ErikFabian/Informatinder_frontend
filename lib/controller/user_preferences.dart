@@ -1,4 +1,4 @@
-import 'package:frontend_flutter/models/User.dart';
+import 'package:frontend_flutter/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -17,14 +17,14 @@ class UserPreferences {
   Future<User> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? id_string = prefs.getString("id");
+    String? idString = prefs.getString("id");
     int id = 0;
     String? username = prefs.getString("username");
     String? email = prefs.getString("email");
     String? token = prefs.getString("token");
 
-    if (id_string != null) {
-      id = int.parse(id_string);
+    if (idString != null) {
+      id = int.parse(idString);
     }
 
     return User(id: id, username: username!, email: email!, token: token!);

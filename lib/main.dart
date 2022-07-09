@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/pages/homePage.dart';
-import 'package:frontend_flutter/pages/matchingPage.dart';
-import 'package:frontend_flutter/pages/matchesPage.dart';
-import 'package:frontend_flutter/pages/settingsPage.dart';
-import 'package:frontend_flutter/controller/routeGenerator.dart';
+import 'package:frontend_flutter/pages/home_page.dart';
+import 'package:frontend_flutter/pages/matching_page.dart';
+import 'package:frontend_flutter/pages/matches_page.dart';
+import 'package:frontend_flutter/pages/settings_page.dart';
+import 'package:frontend_flutter/controller/route_generator.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-final key = GlobalKey<settingsPageState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -43,13 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bodyFunction() {
     switch (page) {
       case 0:
-        return homePage(key: key);
+        return const HomePage();
       case 1:
-        return matchingPage(key: key);
+        return const MatchingPage();
       case 2:
-        return matchesPage();
+        return const MatchesPage();
       default:
-        return settingsPage(key: key);
+        return const SettingsPage();
     }
   }
 

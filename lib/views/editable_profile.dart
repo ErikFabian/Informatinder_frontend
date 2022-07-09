@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
 import 'package:frontend_flutter/views/profile_builder.dart';
-import 'package:frontend_flutter/controller/userPreferences.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:async';
 
 class EditableProfile extends StatefulWidget {
   const EditableProfile({Key? key, required this.data}) : super(key: key);

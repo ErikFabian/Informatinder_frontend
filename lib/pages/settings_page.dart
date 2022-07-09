@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class settingsPage extends StatefulWidget {
-  const settingsPage({Key? key}) : super(key: key);
-  settingsPageState createState() => settingsPageState();
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+  @override
+  SettingsPageState createState() => SettingsPageState();
 }
 
-class settingsPageState extends State<settingsPage> {
+class SettingsPageState extends State<SettingsPage> {
   bool _notifications = true;
   bool _gps = true;
   String _radius = "30 KM";
