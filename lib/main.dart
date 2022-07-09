@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/homePage.dart';
-import 'package:frontend_flutter/matchingPage.dart';
-import 'package:frontend_flutter/matchesPage.dart';
-import 'package:frontend_flutter/settingsPage.dart';
-import 'package:frontend_flutter/routeGenerator.dart';
+import 'package:frontend_flutter/pages/homePage.dart';
+import 'package:frontend_flutter/pages/matchingPage.dart';
+import 'package:frontend_flutter/pages/matchesPage.dart';
+import 'package:frontend_flutter/pages/settingsPage.dart';
+import 'package:frontend_flutter/controller/routeGenerator.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 final key = GlobalKey<settingsPageState>();
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, this.title}) : super(key: key);
   final String? title;
 
   @override

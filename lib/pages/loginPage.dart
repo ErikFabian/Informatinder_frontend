@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/User.dart';
-import 'package:frontend_flutter/userPreferences.dart';
+import 'package:frontend_flutter/controller/userPreferences.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:async';

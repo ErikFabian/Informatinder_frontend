@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
-import 'package:frontend_flutter/profilePage.dart';
-import 'package:frontend_flutter/userPreferences.dart';
+import 'package:frontend_flutter/pages/profilePage.dart';
+import 'package:frontend_flutter/controller/userPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

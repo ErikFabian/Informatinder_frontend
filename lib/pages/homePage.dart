@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/EditableProfile.dart';
+import 'package:frontend_flutter/views/EditableProfile.dart';
 import 'package:frontend_flutter/models/language.dart';
 import 'package:frontend_flutter/models/profile.dart';
-import 'package:frontend_flutter/profile_builder.dart';
-import 'package:frontend_flutter/userPreferences.dart';
+import 'package:frontend_flutter/views/profile_builder.dart';
+import 'package:frontend_flutter/controller/userPreferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 

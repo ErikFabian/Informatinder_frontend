@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/main.dart';
-import 'package:frontend_flutter/profilePage.dart';
-import 'package:frontend_flutter/registerPage.dart';
-import 'package:frontend_flutter/loginPage.dart';
+import 'package:frontend_flutter/pages/registerPage.dart';
+import 'package:frontend_flutter/pages/loginPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // final args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => MyHomePage());

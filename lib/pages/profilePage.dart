@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/profile_builder.dart';
+import 'package:frontend_flutter/views/profile_builder.dart';
+import 'package:frontend_flutter/models/profile.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
-import 'models/profile.dart';
 
 class profilePage extends StatelessWidget {
   final Profile profile;
